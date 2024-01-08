@@ -1,26 +1,30 @@
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import "@/app/style/globals.css";
 
 export const metadata: Metadata = {
   title: "Auth page",
-  description: "welcome to auth page",
+  description: "Welcome to writer auth page",
 };
 
 const font = Inter({
-  weight: "500",
   subsets: ["latin"],
+  weight: "500",
 });
 
-const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
-  <div
-    className={cn(
-      "w-full h-screen  flex items-center justify-center bg-gradient-to-b from-fuchsia-600 to-pink-600",
-      font.className
-    )}
-  >
-    {children}
-  </div>;
-};
-
-export default AuthLayout;
+export default function AuthLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "w-full h-screen  flex items-center justify-center bg-gradient-to-b from-fuchsia-600 to-pink-600"
+      )}
+    >
+      {children}
+    </div>
+  );
+}
