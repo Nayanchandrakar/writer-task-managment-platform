@@ -15,7 +15,7 @@ const font = Inter({
 const AuthLayout = async ({ children }: { children: React.ReactNode }) => {
   <div
     className={cn(
-      "w-full h-screen  flex items-center justify-center",
+      "w-full h-screen  flex items-center justify-center bg-gradient-to-b from-fuchsia-600 to-pink-600",
       font.className
     )}
   >
