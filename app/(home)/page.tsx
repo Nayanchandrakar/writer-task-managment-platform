@@ -1,5 +1,3 @@
-import { auth } from "@clerk/nextjs";
-import { redirect } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRightCircle } from "lucide-react";
@@ -7,21 +5,7 @@ import { ArrowRightCircle } from "lucide-react";
 import Container from "@components/ui/shared/container";
 import CallToAction from "@components/ui/shared/call-to-action";
 
-const HomePage = async () => {
-  const { userId, orgId } = auth();
-
-  if (userId && !orgId) {
-    return redirect("/create-organization");
-  }
-
-  if (!userId && orgId) {
-    return redirect(`/`);
-  }
-
-  if (userId && orgId) {
-    return redirect(`/organization/${orgId}`);
-  }
-
+const HomePage = () => {
   return (
     <>
       <Container className="bg-gray-100/60">
