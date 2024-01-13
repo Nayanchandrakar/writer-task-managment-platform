@@ -16,13 +16,13 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { userId, orgId } = auth();
+  const { userId } = auth();
 
   return (
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Navbar userId={userId} orgId={orgId} />
+          <Navbar userId={userId} />
           {children}
         </body>
       </html>

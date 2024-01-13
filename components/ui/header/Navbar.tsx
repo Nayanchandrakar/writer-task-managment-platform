@@ -4,16 +4,15 @@ import Logo from "./Logo";
 import Actions from "./Actions";
 
 interface NavbarProps {
-  orgId: string | null | undefined;
   userId: string | null | undefined;
 }
 
-const Navbar: FC<NavbarProps> = ({ orgId, userId }) => {
+const Navbar: FC<NavbarProps> = ({ userId }) => {
   return (
-    <header className="w-full h-[68px] border-b border-b-zinc-200 sticky inset-0 top-0 z-[80] bg-white">
+    <header className="w-full h-[68px] border-b border-b-zinc-200 fixed inset-0 top-0 z-[80] bg-white">
       <Container className="w-full h-full flex items-center justify-between">
         <Logo />
-        <Actions userId={userId} orgId={orgId} />
+        <Actions userId={userId} />
       </Container>
     </header>
   );
