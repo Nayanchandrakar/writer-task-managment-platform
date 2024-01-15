@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum ACTIVITY_TYPES {
+  WORKSPACE
+  NOTE
+  CHAPTER
+  TOPIC
+  SUBTOPIC
+}
+
+enum ACTIVITY_OPERATIONS {
+  CREATE
+  UPDATE
+  DELETE
+}
+
+model WorkSpace {
+  id           String          @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String          @db.String
+  name         String
+  notes        Note[]
+  subscription Subscriptions[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Note {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  workspace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
+  workSpaceId String?    @db.ObjectId
+  noteTitle   String
+  chapters    Chapter[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Chapter {
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
+  noteId       String?  @db.ObjectId
+  Note         Note?    @relation(fields: [noteId], references: [id])
+  title        String
+  chapterImage String
+  Topic        Topic[]
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Topic {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  chapterId String?    @db.ObjectId
+  chapters  Chapter?   @relation(fields: [chapterId], references: [id])
+  SubTopic  SubTopic[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model SubTopic {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  topicId     String?  @db.ObjectId
+  topics      Topic?   @relation(fields: [topicId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model UserLimits {
+  id     String @id @default(auto()) @map("_id") @db.ObjectId
+  userId String
+  limits Int    @default(0)
+}
+
+model ActivityLog {
+  id             String              @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String
+  entityType     ACTIVITY_TYPES
+  entitOperation ACTIVITY_OPERATIONS
+  entityTitle    String
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+}
+
+model Subscriptions {
+  id               String     @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String     @unique
+  price            String
+  stripeCustomerId String?    @unique
+  stripePaymentId  String?    @unique
+  WorkSpace        WorkSpace? @relation(fields: [workSpaceId], references: [id])
+  workSpaceId      String?    @db.ObjectId
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+}
