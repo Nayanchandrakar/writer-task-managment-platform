@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/style/globals.css";
 import { ClerkProvider, auth } from "@clerk/nextjs";
 import Navbar from "../components/ui/header/Navbar";
+import CreatWorkSpace from "./(platform)/_components/create-workspace-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <Navbar userId={userId} />
+          <CreatWorkSpace />
           {children}
         </body>
       </html>

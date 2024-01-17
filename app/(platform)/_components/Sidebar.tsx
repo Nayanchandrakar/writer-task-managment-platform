@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import {
   Accordion,
@@ -8,15 +10,21 @@ import {
 import { Plus } from "lucide-react";
 import { Button } from "@components/ui/button";
 import { WorkSpace } from "@prisma/client";
+import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
 
 interface SidebarProps {
   workSpaces: WorkSpace[] | null;
 }
 
 const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
+  const workSpaceModal = useWorkSpaceModal();
+
   return (
     <div className="md:mt-16 w-full h-full md:p-4 md:pt-12  ">
-      <div className="flex justify-between items-center cursor-pointer px-3 transiton-colors duration-300 group">
+      <div
+        onClick={() => workSpaceModal?.onOpen()}
+        className="flex justify-between items-center cursor-pointer px-3 transiton-colors duration-300 group"
+      >
         <span className="text-sm font-medium group-hover:opacity-90">
           Create a Board{" "}
         </span>
