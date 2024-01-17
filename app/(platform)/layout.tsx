@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/style/globals.css";
 import { auth } from "@clerk/nextjs";
 import Sidebar from "./_components/Sidebar";
+import prismadb from "@lib/prismadb";
 
 export const metadata: Metadata = {
   title: "Notes Page",
@@ -14,7 +15,7 @@ const font = Inter({
   weight: "500",
 });
 
-export default function NotesLayout({
+export default async function NotesLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -22,10 +23,16 @@ export default function NotesLayout({
   const { userId } = auth();
   if (!userId) return null;
 
+  const workSpace = await prismadb?.workSpace?.findMany({
+    where: {
+      userId: userId,
+    },
+  });
+
   return (
     <main>
       <div className="w-72 border-r border-zinc-200 fixed inset-0 h-full z-[70] ">
-        <Sidebar />
+        <Sidebar workSpaces={workSpace} />
       </div>
       <div className="mt-16 md:ml-72">{children}</div>
     </main>
