@@ -1,12 +1,6 @@
 "use client";
 
-import { FC, useState } from "react";
-import {
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { FC } from "react";
 
 import DialogModal from "@components/modals/dialog-modal";
 import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
@@ -15,18 +9,18 @@ import { Button } from "@components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useAction } from "@hooks/useAction";
 import { createWorkSpaceAction } from "@actions/index";
-import { WorkSpace } from "@prisma/client";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface CreatWorkSpaceProps {}
 
 const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
-  const [workSpace, setWorkSpace] = useState<WorkSpace | null>(null);
   const workSpaceModal = useWorkSpaceModal();
+  const router = useRouter();
 
   const { execute, isLoading } = useAction(createWorkSpaceAction, {
     onSuccess: (data) => {
-      setWorkSpace(data);
+      router?.refresh();
       toast.success(`${data?.name} workspace created!`);
     },
     onError: (error) => {
@@ -38,10 +32,11 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
   });
 
   const onSubmit = async (formData: FormData) => {
-    // execute({
-    //   name,
-    // });
-    console.log(formData?.get("name"));
+    const name = formData?.get("name") as string;
+
+    execute({
+      name,
+    });
   };
 
   return (
@@ -55,7 +50,7 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
           <span className="text-base font-semibold">Work Space</span>
           <p> create your own personal notes with writer.</p>
         </div>
-        <Input disabled={isLoading} required />
+        <Input id="name" name="name" disabled={isLoading} required />
 
         <div className="flex items-center space-x-2 mt-2">
           <Button

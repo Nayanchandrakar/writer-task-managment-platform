@@ -28,7 +28,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
         <span className="text-sm font-medium group-hover:opacity-90">
           Create a Board{" "}
         </span>
-        <span className="w-8 h-8 flex items-center justify-center bg-slate-200 group-hover:bg-slate-100  transiton-colors duration-300 rounded-full">
+        <span className="w-8 h-8 flex items-center justify-center  group-hover:bg-slate-100  transiton-colors duration-300 rounded-full">
           <Plus className="w-4 h-4" />
         </span>
       </div>
@@ -36,14 +36,14 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
       {/* Accordion list  */}
       <div className="mt-4">
         {workSpaces?.length === 0 ? null : (
-          <Accordion type="single" collapsible>
+          <Accordion type="single" className="space-y-2" collapsible>
             {workSpaces?.map((workSpace) => (
               <AccordionItem
                 id={workSpace?.id}
                 className="border-none"
                 value={workSpace?.name}
               >
-                <AccordionTrigger className="text-sm font-medium p-2 bg-slate-100 w-full h-fit hover:no-underline rounded-lg">
+                <AccordionTrigger className="text-sm font-normal p-3 bg-slate-100 w-full h-fit hover:no-underline rounded-lg">
                   {workSpace?.name}
                 </AccordionTrigger>
 
