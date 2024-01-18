@@ -10,7 +10,7 @@ export type handlerType<Tinput, Toutput> = {
   data?: Toutput;
 };
 
-export const actionHandler = async <Tinput, Toutput>(
+export const actionHandler = <Tinput, Toutput>(
   schema: z.Schema<Tinput>,
   handler: (validatedData: Tinput) => Promise<handlerType<Tinput, Toutput>>
 ) => {

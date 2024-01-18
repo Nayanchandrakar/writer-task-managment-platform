@@ -1,6 +1,6 @@
 "use client";
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import {
   DialogDescription,
   DialogFooter,
@@ -13,11 +13,36 @@ import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
+import { useAction } from "@hooks/useAction";
+import { createWorkSpaceAction } from "@actions/index";
+import { WorkSpace } from "@prisma/client";
+import { toast } from "sonner";
 
 interface CreatWorkSpaceProps {}
 
 const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
+  const [workSpace, setWorkSpace] = useState<WorkSpace | null>(null);
   const workSpaceModal = useWorkSpaceModal();
+
+  const { execute, isLoading } = useAction(createWorkSpaceAction, {
+    onSuccess: (data) => {
+      setWorkSpace(data);
+      toast.success(`${data?.name} workspace created!`);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+    onComplete: () => {
+      workSpaceModal?.onClose();
+    },
+  });
+
+  const onSubmit = async (formData: FormData) => {
+    // execute({
+    //   name,
+    // });
+    console.log(formData?.get("name"));
+  };
 
   return (
     <DialogModal
@@ -25,28 +50,30 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
       onClose={workSpaceModal?.onClose}
       onOpen={workSpaceModal?.onOpen}
     >
-      <DialogHeader>
-        <DialogTitle>Work Space</DialogTitle>
-        <DialogDescription>
-          create your own personal notes with writer.
-        </DialogDescription>
-      </DialogHeader>
-      <div className="flex items-center space-x-2">
-        <div className="grid flex-1 gap-2">
-          <Input />
+      <form id="form-button" className="space-y-3" action={onSubmit}>
+        <div className="flex flex-col gap-2">
+          <span className="text-base font-semibold">Work Space</span>
+          <p> create your own personal notes with writer.</p>
         </div>
-      </div>
+        <Input disabled={isLoading} required />
 
-      <DialogFooter className="sm:justify-start">
-        <Button type="submit" className="px-3">
-          Create
-        </Button>
-        <DialogClose asChild>
-          <Button type="button" variant="secondary">
-            Close
+        <div className="flex items-center space-x-2 mt-2">
+          <Button
+            disabled={isLoading}
+            id="form-button"
+            type="submit"
+            className="px-3"
+          >
+            Create
           </Button>
-        </DialogClose>
-      </DialogFooter>
+
+          <DialogClose asChild>
+            <Button disabled={isLoading} type="button" variant="secondary">
+              Close
+            </Button>
+          </DialogClose>
+        </div>
+      </form>
     </DialogModal>
   );
 };
