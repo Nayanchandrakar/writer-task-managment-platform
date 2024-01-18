@@ -1,22 +1,42 @@
-import { formSchemaType } from "@/actions/schema";
+import { formSchema, formSchemaType } from "@/actions/schema";
 import { auth } from "@clerk/nextjs";
 import { handlerOutputType } from "./types";
+import { actionHandler } from "@/types/action-types";
+import prismadb from "@/lib/prismadb";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
-  const { userId } = auth();
+  try {
+    const { userId } = auth();
 
-  if (!userId) {
+    if (!userId) {
+      return {
+        error: "Unauthorized user!",
+      };
+    }
+
+    const { name } = req;
+
+    const WorkSpace = await prismadb?.workSpace?.create({
+      data: {
+        userId,
+        name,
+      },
+    });
+
+    if (!WorkSpace) {
+      return {
+        error: "Database error",
+      };
+    }
+
     return {
-      error: "Unauthorized user!",
+      data: WorkSpace,
+    };
+  } catch (error) {
+    return {
+      error: "Internal server Error",
     };
   }
-
-  const {name} = req;
-
-  
-  return {
-    data: "HELLO",
-  };
 };
 
-export const createWorkSpaceAction = 
+export const createWorkSpaceAction = actionHandler(formSchema, handler);
