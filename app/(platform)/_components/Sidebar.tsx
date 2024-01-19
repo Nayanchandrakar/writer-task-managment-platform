@@ -9,15 +9,23 @@ import {
 } from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
 import { Button } from "@components/ui/button";
-import { WorkSpace } from "@prisma/client";
+import { WorkSpace, Note } from "@prisma/client";
 import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
+import { useNotesModal } from "@hooks/use-notes-modal";
 
 interface SidebarProps {
-  workSpaces: WorkSpace[] | null;
+  workSpaces:
+    | (WorkSpace & {
+        notes: Note[] | null;
+      })[]
+    | null;
 }
 
 const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const workSpaceModal = useWorkSpaceModal();
+  const notesModal = useNotesModal();
+
+  console.log(workSpaces);
 
   return (
     <div className="md:mt-16 w-full h-full md:p-4 md:pt-12  ">
@@ -47,8 +55,23 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                   {workSpace?.name}
                 </AccordionTrigger>
 
-                <AccordionContent className="my-2">
-                  <Button size="sm" className="w-full h-7">
+                <AccordionContent className="my-2 space-y-2 flex items-center flex-col justify-center pb-0">
+                  {workSpace?.notes?.length === 0
+                    ? null
+                    : workSpace?.notes?.map((note) => (
+                        <div
+                          key={note?.id}
+                          className="w-[90%]  h-8 bg-sky-100 rounded-lg transition-colors hover:bg-sky-200 border border-sky-500 cursor-pointer flex items-center justify-center text-xs text-sky-500"
+                        >
+                          {note?.noteTitle}
+                        </div>
+                      ))}
+
+                  <Button
+                    onClick={() => notesModal.onOpen()}
+                    size="sm"
+                    className="w-full h-7 "
+                  >
                     <Plus className="w-4 h-4" />
                   </Button>
                 </AccordionContent>

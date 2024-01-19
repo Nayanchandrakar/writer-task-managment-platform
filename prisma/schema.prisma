@@ -37,6 +37,7 @@ model Note {
   workspace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
   workSpaceId String?    @db.ObjectId
   noteTitle   String
+  userId      String
   chapters    Chapter[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -47,6 +48,7 @@ model Chapter {
   noteId       String?  @db.ObjectId
   Note         Note?    @relation(fields: [noteId], references: [id])
   title        String
+  userId       String
   chapterImage String
   Topic        Topic[]
   createdAt    DateTime @default(now())
@@ -57,6 +59,7 @@ model Topic {
   id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
   chapterId String?    @db.ObjectId
+  userId    String
   chapters  Chapter?   @relation(fields: [chapterId], references: [id])
   SubTopic  SubTopic[]
   createdAt DateTime   @default(now())
@@ -67,6 +70,7 @@ model SubTopic {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   title       String
   description String
+  userId      String
   topicId     String?  @db.ObjectId
   topics      Topic?   @relation(fields: [topicId], references: [id])
   createdAt   DateTime @default(now())

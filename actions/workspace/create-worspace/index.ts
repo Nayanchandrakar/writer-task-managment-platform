@@ -1,9 +1,12 @@
 "use server";
 
-import { formSchema, formSchemaType } from "@actions/schema";
+import {
+  formSchema,
+  formSchemaType,
+} from "@actions/workspace/create-worspace/schema";
 import { auth } from "@clerk/nextjs";
 import { handlerOutputType } from "./types";
-import { actionHandler } from "../types/action-types";
+import { actionHandler } from "../../../types/action-types";
 import prismadb from "@lib/prismadb";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {

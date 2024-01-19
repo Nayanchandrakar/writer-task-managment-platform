@@ -3,25 +3,25 @@
 import { FC } from "react";
 
 import DialogModal from "@components/modals/dialog-modal";
-import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
 import { Input } from "@components/ui/input";
 import { Button } from "@components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useAction } from "@hooks/useAction";
-import { createWorkSpaceAction } from "@actions/workspace/create-worspace/index";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useNotesModal } from "@hooks/use-notes-modal";
+import { createnotesAction } from "@actions/notes/create-notes/index";
 
-interface CreatWorkSpaceProps {}
+interface CreateNoteModalProps {}
 
-const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
-  const workSpaceModal = useWorkSpaceModal();
+const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
+  const workSpaceModal = useNotesModal();
   const router = useRouter();
 
-  const { execute, isLoading } = useAction(createWorkSpaceAction, {
+  const { execute, isLoading } = useAction(createnotesAction, {
     onSuccess: (data) => {
       router?.refresh();
-      toast.success(`${data?.name} workspace created!`);
+      toast.success(`${data?.noteTitle} Note created!`);
     },
     onError: (error) => {
       toast.error(error);
@@ -32,10 +32,10 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
   });
 
   const onSubmit = async (formData: FormData) => {
-    const name = formData?.get("name") as string;
+    const noteTitle = formData?.get("noteTitle") as string;
 
     execute({
-      name,
+      noteTitle,
     });
   };
 
@@ -47,10 +47,10 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
     >
       <form id="form-button" className="space-y-3" action={onSubmit}>
         <div className="flex flex-col gap-2">
-          <span className="text-base font-semibold">Work Space</span>
-          <p> create your own personal worspace with writer.</p>
+          <span className="text-base font-semibold">Create Note</span>
+          <p> create your own personal notes with writer.</p>
         </div>
-        <Input id="name" name="name" disabled={isLoading} required />
+        <Input id="noteTitle" name="noteTitle" disabled={isLoading} required />
 
         <div className="flex items-center space-x-2 mt-2">
           <Button
@@ -73,4 +73,4 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
   );
 };
 
-export default CreatWorkSpace;
+export default CreateNoteModal;

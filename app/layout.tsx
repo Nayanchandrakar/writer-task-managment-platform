@@ -5,6 +5,7 @@ import { ClerkProvider, auth } from "@clerk/nextjs";
 import Navbar from "../components/ui/header/Navbar";
 import CreatWorkSpace from "./(platform)/_components/create-workspace-modal";
 import { Toaster } from "sonner";
+import CreateNoteModal from "./(platform)/_components/create-notes-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
           <Toaster />
           <Navbar userId={userId} />
           <CreatWorkSpace />
+          <CreateNoteModal />
           {children}
         </body>
       </html>
