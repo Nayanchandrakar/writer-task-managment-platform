@@ -20,7 +20,6 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     const notes = await prismadb?.note?.create({
       data: {
-        userId,
         noteTitle,
       },
     });

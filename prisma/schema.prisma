@@ -37,7 +37,6 @@ model Note {
   workspace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
   workSpaceId String?    @db.ObjectId
   noteTitle   String
-  userId      String
   chapters    Chapter[]
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt

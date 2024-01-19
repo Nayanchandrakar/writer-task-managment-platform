@@ -4,6 +4,7 @@ import "@/app/style/globals.css";
 import { auth } from "@clerk/nextjs";
 import Sidebar from "./_components/Sidebar";
 import prismadb from "@lib/prismadb";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Notes Page",
@@ -21,18 +22,11 @@ export default async function NotesLayout({
   children: React.ReactNode;
 }) {
   const { userId } = auth();
-  if (!userId) return null;
+  if (!userId) return redirect("/");
 
   const workSpace = await prismadb?.workSpace?.findMany({
     where: {
       userId: userId,
-    },
-    include: {
-      notes: {
-        where: {
-          userId,
-        },
-      },
     },
   });
 
