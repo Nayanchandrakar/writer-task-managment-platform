@@ -28,6 +28,9 @@ export default async function NotesLayout({
     where: {
       userId: userId,
     },
+    include: {
+      notes: true,
+    },
   });
 
   return (

@@ -25,7 +25,10 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const workSpaceModal = useWorkSpaceModal();
   const notesModal = useNotesModal();
 
-  console.log(workSpaces);
+  const handleToogle = (id: string) => {
+    notesModal.setWorkSpaceId(id);
+    notesModal.onOpen();
+  };
 
   return (
     <div className="md:mt-16 w-full h-full md:p-4 md:pt-12  ">
@@ -61,14 +64,14 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                     : workSpace?.notes?.map((note) => (
                         <div
                           key={note?.id}
-                          className="w-[90%]  h-8 bg-sky-100 rounded-lg transition-colors hover:bg-sky-200 border border-sky-500 cursor-pointer flex items-center justify-center text-xs text-sky-500"
+                          className="w-[95%]  h-8 bg-sky-100 rounded-lg transition-colors hover:bg-sky-200 border border-sky-700 cursor-pointer flex items-center justify-center text-xs text-sky-700"
                         >
                           {note?.noteTitle}
                         </div>
                       ))}
 
                   <Button
-                    onClick={() => notesModal.onOpen()}
+                    onClick={() => handleToogle(workSpace?.id)}
                     size="sm"
                     className="w-full h-7 "
                   >

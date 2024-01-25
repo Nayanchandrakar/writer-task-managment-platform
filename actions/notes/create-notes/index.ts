@@ -16,11 +16,32 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       };
     }
 
-    const { noteTitle } = req;
+    const { noteTitle, workSpaceId } = req;
 
-    const notes = await prismadb?.note?.create({
+    const isExist = await prismadb?.workSpace?.findFirst({
+      where: {
+        id: workSpaceId,
+        userId,
+      },
+    });
+
+    if (!isExist) {
+      return {
+        error: "No workspace exist!",
+      };
+    }
+
+    const notes = await prismadb?.workSpace?.update({
+      where: {
+        id: isExist?.id,
+        userId,
+      },
       data: {
-        noteTitle,
+        notes: {
+          create: {
+            noteTitle,
+          },
+        },
       },
     });
 
@@ -30,8 +51,20 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       };
     }
 
+    const updatedNotes = await prismadb?.note?.findFirst({
+      where: {
+        id: notes?.id,
+      },
+    });
+
+    if (!updatedNotes) {
+      return {
+        error: "Notes not exist",
+      };
+    }
+
     return {
-      data: notes,
+      data: updatedNotes,
     };
   } catch (error) {
     return {

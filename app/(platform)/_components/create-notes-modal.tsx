@@ -36,6 +36,7 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
 
     execute({
       noteTitle,
+      workSpaceId: workSpaceModal?.workSpaceId!,
     });
   };
 
