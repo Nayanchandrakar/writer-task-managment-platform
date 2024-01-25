@@ -31,7 +31,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       };
     }
 
-    const notes = await prismadb?.workSpace?.update({
+    const workSpaceUpdate = await prismadb?.workSpace?.update({
       where: {
         id: isExist?.id,
         userId,
@@ -45,7 +45,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       },
     });
 
-    if (!notes) {
+    if (!workSpaceUpdate) {
       return {
         error: "Database error",
       };
@@ -53,7 +53,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     const updatedNotes = await prismadb?.note?.findFirst({
       where: {
-        id: notes?.id,
+        workSpaceId,
       },
     });
 

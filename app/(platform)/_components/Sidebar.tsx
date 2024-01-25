@@ -64,7 +64,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                     : workSpace?.notes?.map((note) => (
                         <div
                           key={note?.id}
-                          className="w-[95%]  h-8 bg-sky-100 rounded-lg transition-colors hover:bg-sky-200 border border-sky-700 cursor-pointer flex items-center justify-center text-xs text-sky-700"
+                          className="w-full  h-8 bg-sky-100 rounded-lg transition-colors hover:bg-sky-200 border border-sky-700 cursor-pointer flex items-center justify-center text-xs text-sky-700"
                         >
                           {note?.noteTitle}
                         </div>
