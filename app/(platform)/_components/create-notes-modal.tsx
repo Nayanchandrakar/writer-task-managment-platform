@@ -20,7 +20,7 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
 
   const { execute, isLoading } = useAction(createnotesAction, {
     onSuccess: (data) => {
-      router?.refresh();
+      router?.push(`/workspace/${data?.workSpaceId}/notes/${data?.id}`);
       toast.success(`${data?.noteTitle} Note created!`);
     },
     onError: (error) => {
@@ -36,7 +36,6 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
 
     execute({
       noteTitle,
-      workSpaceId: workSpaceModal?.workSpaceId!,
     });
   };
 

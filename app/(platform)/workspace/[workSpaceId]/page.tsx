@@ -33,7 +33,7 @@ const workSpaceIdPage: FC<workSpaceIdPageProps> = async ({ params }) => {
           {workSpace?.name}!
         </span>
       </h1>
-      <WorkSpaceButton />
+      <WorkSpaceButton workSpaceId={workSpace?.id} className="w-40" />
     </Container>
   );
 };

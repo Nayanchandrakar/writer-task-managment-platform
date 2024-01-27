@@ -6,7 +6,17 @@ import { handlerOutputType } from "./types";
 import { actionHandler } from "../../../types/action-types";
 import prismadb from "@lib/prismadb";
 
-const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
+const handler = async (
+  req: formSchemaType,
+  {
+    params,
+  }: {
+    params: {
+      workSpaceId: string;
+      noteId: string;
+    };
+  }
+): Promise<handlerOutputType> => {
   try {
     const { userId } = auth();
 
@@ -16,7 +26,9 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       };
     }
 
-    const { noteTitle, workSpaceId } = req;
+    const { noteId, workSpaceId } = params;
+
+    const { noteTitle } = req;
 
     const isExist = await prismadb?.workSpace?.findFirst({
       where: {

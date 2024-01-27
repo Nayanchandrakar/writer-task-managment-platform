@@ -26,7 +26,6 @@ interface SidebarProps {
 
 const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const workSpaceModal = useWorkSpaceModal();
-  const notesModal = useNotesModal();
   const router = useRouter();
   const params = useParams();
 
