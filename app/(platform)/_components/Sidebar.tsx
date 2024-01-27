@@ -14,6 +14,7 @@ import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
 import { useNotesModal } from "@hooks/use-notes-modal";
 import { cn } from "@lib/utils";
 import { useRouter, useParams } from "next/navigation";
+import WorkSpaceButton from "../workspace/[workSpaceId]/_components/work-space-create-button";
 
 interface SidebarProps {
   workSpaces:
@@ -29,26 +30,14 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const router = useRouter();
   const params = useParams();
 
-  const handleToogle = (id: string) => {
-    notesModal.setWorkSpaceId(id);
-    notesModal.onOpen();
+  const handleClick = (workSpaceId: string, noteId: string) => {
+    router.push(`/workspace/${workSpaceId}/notes/${noteId}`);
   };
 
-  const handleClick = (id: string) => {
-    router.push(`/notes/${id}`);
-  };
+  const noteId = params?.noteId;
+  const workSpaceId = params?.workSpaceId;
 
-  const noteId = params.noteId;
-
-  const isActive = (
-    data:
-      | (WorkSpace & {
-          notes: Note[] | null;
-        })
-      | null
-  ) => {
-    return data?.notes?.some((note) => !!(note?.id === noteId));
-  };
+  const isActive = (id: string) => !!(workSpaceId === id);
 
   return (
     <div className="md:mt-16 w-full h-full md:p-4 md:pt-12  ">
@@ -77,7 +66,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                 <AccordionTrigger
                   className={cn(
                     "text-sm font-normal p-3 bg-slate-100 w-full h-fit hover:no-underline rounded-lg",
-                    isActive(workSpace) && "bg-slate-200"
+                    isActive(workSpace?.id) && "bg-slate-200"
                   )}
                 >
                   {workSpace?.name}
@@ -88,7 +77,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                     ? null
                     : workSpace?.notes?.map((note) => (
                         <div
-                          onClick={() => handleClick(note?.id)}
+                          onClick={() => handleClick(workSpace?.id, note?.id)}
                           key={note?.id}
                           className={cn(
                             "w-full  h-8 bg-gray-100 rounded-lg transition-colors hover:bg-gray-200 border cursor-pointer flex items-center justify-center text-xs ",
@@ -101,13 +90,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                         </div>
                       ))}
 
-                  <Button
-                    onClick={() => handleToogle(workSpace?.id)}
-                    size="sm"
-                    className="w-full h-7 "
-                  >
-                    <Plus className="w-4 h-4" />
-                  </Button>
+                  <WorkSpaceButton workSpaceId={workSpace?.id} />
                 </AccordionContent>
               </AccordionItem>
             ))}
