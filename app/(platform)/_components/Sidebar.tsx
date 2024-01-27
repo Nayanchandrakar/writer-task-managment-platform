@@ -12,6 +12,8 @@ import { Button } from "@components/ui/button";
 import { WorkSpace, Note } from "@prisma/client";
 import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
 import { useNotesModal } from "@hooks/use-notes-modal";
+import { cn } from "@lib/utils";
+import { useRouter, useParams } from "next/navigation";
 
 interface SidebarProps {
   workSpaces:
@@ -24,10 +26,28 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const workSpaceModal = useWorkSpaceModal();
   const notesModal = useNotesModal();
+  const router = useRouter();
+  const params = useParams();
 
   const handleToogle = (id: string) => {
     notesModal.setWorkSpaceId(id);
     notesModal.onOpen();
+  };
+
+  const handleClick = (id: string) => {
+    router.push(`/notes/${id}`);
+  };
+
+  const noteId = params.noteId;
+
+  const isActive = (
+    data:
+      | (WorkSpace & {
+          notes: Note[] | null;
+        })
+      | null
+  ) => {
+    return data?.notes?.some((note) => !!(note?.id === noteId));
   };
 
   return (
@@ -54,7 +74,12 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                 className="border-none"
                 value={workSpace?.name}
               >
-                <AccordionTrigger className="text-sm font-normal p-3 bg-slate-100 w-full h-fit hover:no-underline rounded-lg">
+                <AccordionTrigger
+                  className={cn(
+                    "text-sm font-normal p-3 bg-slate-100 w-full h-fit hover:no-underline rounded-lg",
+                    isActive(workSpace) && "bg-slate-200"
+                  )}
+                >
                   {workSpace?.name}
                 </AccordionTrigger>
 
@@ -63,8 +88,14 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                     ? null
                     : workSpace?.notes?.map((note) => (
                         <div
+                          onClick={() => handleClick(note?.id)}
                           key={note?.id}
-                          className="w-full  h-8 bg-sky-100 rounded-lg transition-colors hover:bg-sky-200 border border-sky-700 cursor-pointer flex items-center justify-center text-xs text-sky-700"
+                          className={cn(
+                            "w-full  h-8 bg-gray-100 rounded-lg transition-colors hover:bg-gray-200 border cursor-pointer flex items-center justify-center text-xs ",
+                            noteId === note?.id
+                              ? "bg-sky-100 hover:bg-sky-200 border-sky-700 text-sky-700"
+                              : "border-gray-100 text-gray-700"
+                          )}
                         >
                           {note?.noteTitle}
                         </div>
