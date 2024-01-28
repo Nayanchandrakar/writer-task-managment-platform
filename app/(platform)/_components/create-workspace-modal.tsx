@@ -10,13 +10,12 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { useAction } from "@hooks/useAction";
 import { createWorkSpaceAction } from "@actions/workspace/create-worspace/index";
 import { toast } from "sonner";
-import { redirect, useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 interface CreatWorkSpaceProps {}
 
 const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
   const workSpaceModal = useWorkSpaceModal();
-  const params = useParams();
   const router = useRouter();
 
   const { execute, isLoading } = useAction(createWorkSpaceAction, {

@@ -39,7 +39,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const isActive = (id: string) => !!(workSpaceId === id);
 
   return (
-    <div className="md:mt-16 w-full h-full md:p-4 md:pt-12  ">
+    <div className="md:mt-16 w-full h-full md:p-4 md:pt-12 md:inline-block hidden ">
       <div
         onClick={() => workSpaceModal?.onOpen()}
         className="flex justify-between items-center cursor-pointer px-3 transiton-colors duration-300 group"
