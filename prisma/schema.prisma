@@ -34,7 +34,7 @@ model WorkSpace {
 
 model Note {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
-  workspace   WorkSpace? @relation(fields: [workSpaceId], references: [id])
+  workspace   WorkSpace? @relation(fields: [workSpaceId], references: [id], onDelete: Cascade)
   workSpaceId String?    @db.ObjectId
   noteTitle   String
   chapters    Chapter[]
@@ -45,7 +45,7 @@ model Note {
 model Chapter {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
   noteId       String?  @db.ObjectId
-  Note         Note?    @relation(fields: [noteId], references: [id])
+  Note         Note?    @relation(fields: [noteId], references: [id], onDelete: Cascade)
   title        String
   userId       String
   chapterImage String
@@ -59,7 +59,7 @@ model Topic {
   name      String
   chapterId String?    @db.ObjectId
   userId    String
-  chapters  Chapter?   @relation(fields: [chapterId], references: [id])
+  chapters  Chapter?   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   SubTopic  SubTopic[]
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
@@ -71,7 +71,7 @@ model SubTopic {
   description String
   userId      String
   topicId     String?  @db.ObjectId
-  topics      Topic?   @relation(fields: [topicId], references: [id])
+  topics      Topic?   @relation(fields: [topicId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

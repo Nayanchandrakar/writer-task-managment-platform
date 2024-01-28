@@ -8,7 +8,7 @@ import { Button } from "@components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { useAction } from "@hooks/useAction";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useNotesModal } from "@hooks/use-notes-modal";
 import { createnotesAction } from "@actions/notes/create-notes/index";
 
@@ -17,6 +17,8 @@ interface CreateNoteModalProps {}
 const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
   const workSpaceModal = useNotesModal();
   const router = useRouter();
+  const params = useParams();
+  const workSpaceId = params?.workSpaceId as string;
 
   const { execute, isLoading } = useAction(createnotesAction, {
     onSuccess: (data) => {
@@ -36,6 +38,7 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
 
     execute({
       noteTitle,
+      workSpaceId,
     });
   };
 

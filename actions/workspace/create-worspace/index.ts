@@ -8,6 +8,7 @@ import { auth } from "@clerk/nextjs";
 import { handlerOutputType } from "./types";
 import { actionHandler } from "../../../types/action-types";
 import prismadb from "@lib/prismadb";
+import { revalidatePath } from "next/cache";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -33,6 +34,8 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
         error: "Database error",
       };
     }
+
+    revalidatePath(`/workspace/${WorkSpace?.id}`);
 
     return {
       data: WorkSpace,

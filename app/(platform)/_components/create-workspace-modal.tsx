@@ -10,17 +10,18 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { useAction } from "@hooks/useAction";
 import { createWorkSpaceAction } from "@actions/workspace/create-worspace/index";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 
 interface CreatWorkSpaceProps {}
 
 const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
   const workSpaceModal = useWorkSpaceModal();
+  const params = useParams();
   const router = useRouter();
 
   const { execute, isLoading } = useAction(createWorkSpaceAction, {
     onSuccess: (data) => {
-      router?.refresh();
+      router.push(`/workspace/${data?.id}`);
       toast.success(`${data?.name} workspace created!`);
     },
     onError: (error) => {

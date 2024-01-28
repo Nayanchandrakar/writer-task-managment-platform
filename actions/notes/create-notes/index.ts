@@ -5,18 +5,9 @@ import { auth } from "@clerk/nextjs";
 import { handlerOutputType } from "./types";
 import { actionHandler } from "../../../types/action-types";
 import prismadb from "@lib/prismadb";
+import { revalidatePath } from "next/cache";
 
-const handler = async (
-  req: formSchemaType,
-  {
-    params,
-  }: {
-    params: {
-      workSpaceId: string;
-      noteId: string;
-    };
-  }
-): Promise<handlerOutputType> => {
+const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
     const { userId } = auth();
 
@@ -26,9 +17,7 @@ const handler = async (
       };
     }
 
-    const { noteId, workSpaceId } = params;
-
-    const { noteTitle } = req;
+    const { noteTitle, workSpaceId } = req;
 
     const isExist = await prismadb?.workSpace?.findFirst({
       where: {
@@ -43,40 +32,23 @@ const handler = async (
       };
     }
 
-    const workSpaceUpdate = await prismadb?.workSpace?.update({
-      where: {
-        id: isExist?.id,
-        userId,
-      },
+    const createNotes = await prismadb?.note?.create({
       data: {
-        notes: {
-          create: {
-            noteTitle,
-          },
-        },
+        noteTitle,
+        workSpaceId,
       },
     });
 
-    if (!workSpaceUpdate) {
+    if (!createNotes) {
       return {
         error: "Database error",
       };
     }
 
-    const updatedNotes = await prismadb?.note?.findFirst({
-      where: {
-        workSpaceId,
-      },
-    });
-
-    if (!updatedNotes) {
-      return {
-        error: "Notes not exist",
-      };
-    }
+    revalidatePath(`/workspace/${createNotes?.id}`);
 
     return {
-      data: updatedNotes,
+      data: createNotes,
     };
   } catch (error) {
     return {
