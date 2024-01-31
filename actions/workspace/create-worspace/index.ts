@@ -9,6 +9,9 @@ import { handlerOutputType } from "./types";
 import { actionHandler } from "../../../types/action-types";
 import prismadb from "@lib/prismadb";
 import { revalidatePath } from "next/cache";
+import { getSubscription } from "@actions/subscription/get";
+import { getCounters } from "../counts";
+import { MAX_FREE_lIMIT_COUNT } from "@constants";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -21,6 +24,18 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
     }
 
     const { name } = req;
+
+    const { isPro } = await getSubscription();
+
+    if (!isPro) {
+      const { workSpaceCount } = await getCounters();
+
+      if (!(workSpaceCount <= MAX_FREE_lIMIT_COUNT.workspace)) {
+        return {
+          error: "304",
+        };
+      }
+    }
 
     const WorkSpace = await prismadb?.workSpace?.create({
       data: {

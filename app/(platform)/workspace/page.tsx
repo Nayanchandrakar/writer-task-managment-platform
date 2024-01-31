@@ -4,8 +4,7 @@ import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import WorkSpaceCard from "./_components/workspace-card";
 import { getCounters } from "@actions/workspace/counts";
-
-interface workSpacePageProps {}
+import { getSubscription } from "@actions/subscription/get";
 
 const workSpacePage = async ({}) => {
   const { userId } = auth();
@@ -13,11 +12,12 @@ const workSpacePage = async ({}) => {
   if (!userId) redirect("/");
 
   const { notesCount, workSpaceCount } = await getCounters();
+  const { isPro } = await getSubscription();
 
   return (
     <Container>
       <div className="pt-16">
-        <FreeLimitsCounter />
+        {isPro && <FreeLimitsCounter />}
         <div className="flex space-x-3 items-center mt-8">
           <WorkSpaceCard counts={workSpaceCount} label="Total Workspaces" />
           <WorkSpaceCard counts={notesCount} label="Total Notes" />
