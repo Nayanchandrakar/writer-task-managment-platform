@@ -17,6 +17,7 @@ const WorkSpaceButton: FC<WorkSpaceButtonProps> = ({
   const notesModal = useNotesModal();
 
   const handleToogle = () => {
+    notesModal?.setWorkSpaceId(workSpaceId);
     notesModal.onOpen();
   };
 
