@@ -61,10 +61,11 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
                 id={workSpace?.id}
                 className="border-none"
                 value={workSpace?.name}
+                key={workSpace?.id}
               >
                 <AccordionTrigger
                   className={cn(
-                    "text-sm font-normal p-3 bg-slate-100 w-full h-fit hover:no-underline rounded-lg",
+                    "text-sm font-normal p-3 bg-slate-100 w-full h-fit hover:no-underline rounded-lg ",
                     isActive(workSpace?.id) && "bg-slate-200"
                   )}
                 >

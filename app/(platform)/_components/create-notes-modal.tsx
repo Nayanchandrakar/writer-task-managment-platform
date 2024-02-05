@@ -11,11 +11,13 @@ import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
 import { useNotesModal } from "@hooks/use-notes-modal";
 import { createnotesAction } from "@actions/notes/create-notes/index";
+import { useSubscription } from "@hooks/use-subscription-modal";
 
 interface CreateNoteModalProps {}
 
 const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
   const workSpaceModal = useNotesModal();
+  const subscriptionModal = useSubscription();
   const router = useRouter();
   const params = useParams();
   const workSpaceId =
@@ -27,6 +29,9 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
       toast.success(`${data?.noteTitle} Note created!`);
     },
     onError: (error) => {
+      if (error === "304") {
+        return subscriptionModal?.onOpen();
+      }
       toast.error(error);
     },
     onComplete: () => {

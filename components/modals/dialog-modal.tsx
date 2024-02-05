@@ -8,6 +8,7 @@ interface DialogModalProps {
   onClose: () => void;
   onOpen: () => void;
   children: React.ReactNode;
+  className?: string;
 }
 
 const DialogModal: FC<DialogModalProps> = ({
@@ -15,6 +16,7 @@ const DialogModal: FC<DialogModalProps> = ({
   onClose,
   onOpen,
   children,
+  className,
 }) => {
   const [IsMounted, setIsMounted] = useState(false);
 
@@ -26,7 +28,7 @@ const DialogModal: FC<DialogModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>{children}</DialogContent>
+      <DialogContent className={className}>{children}</DialogContent>
     </Dialog>
   );
 };

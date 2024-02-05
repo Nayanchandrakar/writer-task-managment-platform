@@ -3,6 +3,8 @@ import prismadb from "@lib/prismadb";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 import FreeLimitsCounter from "../../../_components/free-limits-counter";
+import Label from "../_components/Label";
+import { Building } from "lucide-react";
 
 interface NotesPageProps {
   params: {
@@ -21,7 +23,15 @@ const NotesPage: FC<NotesPageProps> = async ({ params }) => {
 
   if (!note) redirect("/workspace");
 
-  return <div className="">notes Id page</div>;
+  return (
+    <Container className="pt-20">
+      <Label
+        LabelIcon={Building}
+        description="create your own notes"
+        name={note?.noteTitle}
+      />
+    </Container>
+  );
 };
 
 export default NotesPage;

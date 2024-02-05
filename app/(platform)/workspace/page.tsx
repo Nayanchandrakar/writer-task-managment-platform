@@ -17,7 +17,7 @@ const workSpacePage = async ({}) => {
   return (
     <Container>
       <div className="pt-16">
-        {isPro && <FreeLimitsCounter />}
+        {!isPro && <FreeLimitsCounter />}
         <div className="flex space-x-3 items-center mt-8">
           <WorkSpaceCard counts={workSpaceCount} label="Total Workspaces" />
           <WorkSpaceCard counts={notesCount} label="Total Notes" />

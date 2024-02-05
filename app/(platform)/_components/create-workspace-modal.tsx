@@ -11,11 +11,13 @@ import { useAction } from "@hooks/useAction";
 import { createWorkSpaceAction } from "@actions/workspace/create-worspace/index";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { useSubscription } from "@hooks/use-subscription-modal";
 
 interface CreatWorkSpaceProps {}
 
 const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
   const workSpaceModal = useWorkSpaceModal();
+  const subscriptionModal = useSubscription();
   const router = useRouter();
 
   const { execute, isLoading } = useAction(createWorkSpaceAction, {
@@ -24,6 +26,9 @@ const CreatWorkSpace: FC<CreatWorkSpaceProps> = ({}) => {
       toast.success(`${data?.name} workspace created!`);
     },
     onError: (error) => {
+      if (error === "304") {
+        return subscriptionModal?.onOpen();
+      }
       toast.error(error);
     },
     onComplete: () => {

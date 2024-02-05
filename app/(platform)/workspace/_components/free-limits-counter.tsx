@@ -7,7 +7,7 @@ const FreeLimitsCounter = ({}) => {
   return (
     <div className="bg-gray-100 rounded-lg w-full h-fit p-8 flex flex-col space-y-3 items-start justify-center">
       <span className="text-sm font-medium text-gray-600">
-        <span className="mr-1">2/{MAX_FREE_lIMIT_COUNT}</span>
+        <span className="mr-1">2/{MAX_FREE_lIMIT_COUNT?.workspace}</span>
         Free workspace creations
       </span>
 

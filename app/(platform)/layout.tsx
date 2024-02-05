@@ -35,7 +35,7 @@ export default async function NotesLayout({
 
   return (
     <main>
-      <div className="w-0 border-r border-zinc-200 fixed inset-0 h-full z-[70]  flex md:w-72">
+      <div className="w-0 border-r border-zinc-200 fixed inset-0 h-full z-[40]  flex md:w-72">
         <Sidebar workSpaces={workSpace} />
       </div>
       <div className="mt-16 md:ml-72">{children}</div>

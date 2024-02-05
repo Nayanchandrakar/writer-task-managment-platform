@@ -6,6 +6,7 @@ import Navbar from "../components/ui/header/Navbar";
 import CreatWorkSpace from "./(platform)/_components/create-workspace-modal";
 import { Toaster } from "sonner";
 import CreateNoteModal from "./(platform)/_components/create-notes-modal";
+import SubscriptionModal from "@components/global/subscription-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,10 +26,11 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          <Toaster />
           <Navbar userId={userId} />
+          <Toaster />
           <CreatWorkSpace />
           <CreateNoteModal />
+          <SubscriptionModal />
           {children}
         </body>
       </html>

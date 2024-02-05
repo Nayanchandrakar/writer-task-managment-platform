@@ -29,7 +29,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
       if (!(notesCount <= MAX_FREE_lIMIT_COUNT.notes)) {
         return {
-          error: "303",
+          error: "304",
         };
       }
     }
