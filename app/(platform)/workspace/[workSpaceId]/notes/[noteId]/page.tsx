@@ -2,9 +2,9 @@ import Container from "@components/ui/shared/container";
 import prismadb from "@lib/prismadb";
 import { redirect } from "next/navigation";
 import { FC } from "react";
-import FreeLimitsCounter from "../../../_components/free-limits-counter";
 import Label from "../_components/Label";
 import { Building } from "lucide-react";
+import MapChapters from "../_components/map-chapters";
 
 interface NotesPageProps {
   params: {
@@ -27,9 +27,12 @@ const NotesPage: FC<NotesPageProps> = async ({ params }) => {
     <Container className="pt-20">
       <Label
         LabelIcon={Building}
-        description="create your own notes"
+        description="create your own chapters."
         name={note?.noteTitle}
       />
+      <div className="mt-6">
+        <MapChapters />
+      </div>
     </Container>
   );
 };
