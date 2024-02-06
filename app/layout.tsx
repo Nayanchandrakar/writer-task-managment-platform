@@ -7,6 +7,7 @@ import CreatWorkSpace from "./(platform)/_components/create-workspace-modal";
 import { Toaster } from "sonner";
 import CreateNoteModal from "./(platform)/_components/create-notes-modal";
 import SubscriptionModal from "@components/global/subscription-modal";
+import CreateChapterModal from "@components/global/create-chapter-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,6 +32,7 @@ export default function RootLayout({
           <CreatWorkSpace />
           <CreateNoteModal />
           <SubscriptionModal />
+          <CreateChapterModal />
           {children}
         </body>
       </html>
