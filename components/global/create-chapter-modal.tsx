@@ -10,6 +10,10 @@ import { Check, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { FC, useEffect, useState } from "react";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+
 interface CreateChapterModalProps {}
 
 const CreateChapterModal: FC<CreateChapterModalProps> = ({}) => {
@@ -62,7 +66,7 @@ const CreateChapterModal: FC<CreateChapterModalProps> = ({}) => {
 
   return (
     <DialogModal
-      isOpen={true}
+      isOpen={createChapterModal?.isOpen}
       onOpen={createChapterModal?.onOpen}
       onClose={createChapterModal?.onClose}
     >
@@ -107,15 +111,17 @@ const CreateChapterModal: FC<CreateChapterModalProps> = ({}) => {
         </div>
       )}
 
-      <span className="text-lg font-semibold text-slate-600">
-        Chapter title
-      </span>
-      <div className="space-y-4 w-full h-fit">
-        <Input className="w-full " />
-        <Button className="bg-sky-700 hover:bg-sky-700/90 w-full">
-          Create
-        </Button>
-      </div>
+      <form>
+        <span className="text-lg font-semibold text-slate-600">
+          Chapter title
+        </span>
+        <div className="space-y-4 w-full h-fit">
+          <Input className="w-full " />
+          <Button className="bg-sky-700 hover:bg-sky-700/90 w-full">
+            Create
+          </Button>
+        </div>
+      </form>
     </DialogModal>
   );
 };

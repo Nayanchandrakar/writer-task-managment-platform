@@ -77,9 +77,11 @@ model SubTopic {
 }
 
 model UserLimits {
-  id     String @id @default(auto()) @map("_id") @db.ObjectId
-  userId String
-  limits Int    @default(0)
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  userId         String @unique
+  chapterLimit   Int    @default(0)
+  noteLimit      Int    @default(0)
+  workSpaceLimit Int    @default(0)
 }
 
 model ActivityLog {

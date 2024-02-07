@@ -4,11 +4,13 @@ import prismadb from "@lib/prismadb";
 interface countersInterface {
   workSpaceCount: number;
   notesCount: number;
+  chaptersCount: number;
 }
 
 let countsData: countersInterface = {
   workSpaceCount: 0,
   notesCount: 0,
+  chaptersCount: 0,
 };
 
 export const getCounters = async () => {
@@ -28,14 +30,33 @@ export const getCounters = async () => {
       },
     });
 
-    const ids = workspace?.map((data) => data?.id);
+    const workSpaceids = workspace?.map((data) => data?.id);
 
-    countsData.workSpaceCount = ids?.length;
+    countsData.workSpaceCount = workSpaceids?.length;
 
     countsData.notesCount = await prismadb?.note?.count({
       where: {
         workSpaceId: {
-          in: ids,
+          in: workSpaceids,
+        },
+      },
+    });
+
+    const notes = await prismadb?.note?.findMany({
+      where: {
+        id: {
+          in: workSpaceids,
+        },
+      },
+    });
+
+    const noteIds = workspace?.map((data) => data?.id);
+    countsData.notesCount = notes?.length;
+
+    countsData.chaptersCount = await prismadb?.chapter?.count({
+      where: {
+        id: {
+          in: noteIds,
         },
       },
     });

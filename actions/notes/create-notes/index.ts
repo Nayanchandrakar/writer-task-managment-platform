@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import { getSubscription } from "@actions/subscription/get";
 import { MAX_FREE_lIMIT_COUNT } from "@constants";
 import { getCounters } from "@actions/workspace/counts";
+import { getLimits } from "@actions/global/getLimits";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -25,9 +26,9 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
     const { isPro } = await getSubscription();
 
     if (!isPro) {
-      const { notesCount } = await getCounters();
+      const { noteLimit } = await getLimits();
 
-      if (!(notesCount <= MAX_FREE_lIMIT_COUNT.notes)) {
+      if (!(noteLimit <= MAX_FREE_lIMIT_COUNT.notes)) {
         return {
           error: "304",
         };
