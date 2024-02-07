@@ -1,17 +1,18 @@
 "use server";
 
+import { auth } from "@clerk/nextjs";
+import { revalidatePath } from "next/cache";
+import prismadb from "@lib/prismadb";
+
 import {
   formSchema,
   formSchemaType,
 } from "@actions/workspace/create-worspace/schema";
-import { auth } from "@clerk/nextjs";
 import { handlerOutputType } from "./types";
 import { actionHandler } from "../../../types/action-types";
-import prismadb from "@lib/prismadb";
-import { revalidatePath } from "next/cache";
 import { getSubscription } from "@actions/subscription/get";
-import { getCounters } from "../counts";
 import { MAX_FREE_lIMIT_COUNT } from "@constants";
+import { getLimits, increaseLimit } from "@actions/global/getLimits";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -28,9 +29,9 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
     const { isPro } = await getSubscription();
 
     if (!isPro) {
-      const { workSpaceCount } = await getCounters();
+      const { workSpaceLimit } = await getLimits();
 
-      if (!(workSpaceCount <= MAX_FREE_lIMIT_COUNT.workspace)) {
+      if (!(workSpaceLimit < MAX_FREE_lIMIT_COUNT.workspace)) {
         return {
           error: "304",
         };
@@ -48,6 +49,10 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       return {
         error: "Database error",
       };
+    }
+
+    if (!isPro) {
+      await increaseLimit("note");
     }
 
     revalidatePath(`/workspace/${WorkSpace?.id}`);

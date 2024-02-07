@@ -1,14 +1,14 @@
-import { LucideIcon } from "lucide-react";
+import { LucideIcon, Plus } from "lucide-react";
 import { FC } from "react";
 import Icon from "./Icon";
 
 interface LabelProps {
   LabelIcon: LucideIcon;
   name: string;
-  description?: string;
+  isPro: boolean;
 }
 
-const Label: FC<LabelProps> = ({ LabelIcon, name, description }) => {
+const Label: FC<LabelProps> = ({ LabelIcon, name, isPro }) => {
   return (
     <div className="flex items-center justify-start space-x-4  border-b pb-4 border-zinc-200">
       <Icon Icon={LabelIcon} />
@@ -16,9 +16,10 @@ const Label: FC<LabelProps> = ({ LabelIcon, name, description }) => {
         <h2 className="font-medium first-letter:uppercase text-base ">
           {name}
         </h2>
-        {description && (
-          <p className="text-sm  font-normal text-gray-500">{description}</p>
-        )}
+        <div className="flex space-x-1 text-gray-400 font-semibold text-sm items-center">
+          <Plus className="w-4 h-4 " />
+          <span>{isPro ? "Pro" : "Free"}</span>
+        </div>
       </div>
     </div>
   );

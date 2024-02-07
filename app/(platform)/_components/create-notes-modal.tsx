@@ -21,7 +21,7 @@ const CreateNoteModal: FC<CreateNoteModalProps> = ({}) => {
   const router = useRouter();
   const params = useParams();
   const workSpaceId =
-    (params?.workSpaceId as string) || workSpaceModal?.workSpaceId;
+    (params?.workSpaceId as string) || workSpaceModal.workSpaceId!;
 
   const { execute, isLoading } = useAction(createnotesAction, {
     onSuccess: (data) => {
