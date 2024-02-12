@@ -31,13 +31,14 @@ const HomePage = () => {
                 </Link>
               </p>
 
-              <span
+              <Link
+                href="/workspace"
                 className="inline-flex items-center px-6 py-4 mt-6  font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-8 hover:bg-yellow-400 focus:bg-yellow-400"
                 role="button"
               >
                 Get writer for free
                 <ArrowRightCircle className="w-6 h-6 ml-8 -mr-2" />
-              </span>
+              </Link>
             </div>
 
             <div>

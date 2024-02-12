@@ -1,13 +1,13 @@
-interface pageProps {
+interface chapterIdPageProps {
   params: {
-    chapterId: string;
-    noteId: string;
-    workSpaceId: string;
+    chapterId: string | null;
+    workSpaceId: string | null;
+    noteId: string | null;
   };
 }
 
-const chapterIdPage = ({ params }: pageProps) => {
-  return <div>{params?.chapterId}</div>;
+const chapterIdPage = ({ params }: chapterIdPageProps) => {
+  return <div>chapterIdPage {params?.chapterId}</div>;
 };
 
 export default chapterIdPage;
