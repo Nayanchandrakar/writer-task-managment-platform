@@ -44,7 +44,11 @@ const NotesPage: FC<NotesPageProps> = async ({ params }) => {
     <Container className="pt-20">
       <Label LabelIcon={Building} name={note?.noteTitle} isPro={isPro} />
       <div className="mt-6">
-        <MapChapters isPro={isPro} chapters={chapters} workSpaceId={params?.workSpaceId} />
+        <MapChapters
+          isPro={isPro}
+          chapters={chapters}
+          workSpaceId={params?.workSpaceId}
+        />
       </div>
     </Container>
   );

@@ -6,16 +6,16 @@ import Link from "next/link";
 interface MapChaptersProps {
   chapters: Chapter[] | null;
   workSpaceId: string | null;
-  isPro : boolean
+  isPro: boolean;
 }
 
-const MapChapters = ({ chapters, workSpaceId , isPro}: MapChaptersProps) => {
+const MapChapters = ({ chapters, workSpaceId, isPro }: MapChaptersProps) => {
   return (
     <>
       <div className="flex items-center gap-x-3">
         {chapters?.map((chapter) => (
           <Link
-            href={`/workspace/${workSpaceId}/notes/${chapter?.noteId}/${chapter?.id}`}
+            href={`/chapter/${chapter?.id}`}
             className="w-48 h-28  relative"
           >
             <Image

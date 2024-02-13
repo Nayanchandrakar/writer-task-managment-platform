@@ -11,7 +11,7 @@ import { useAction } from "@hooks/useAction";
 import { unsplash } from "@lib/unsplash";
 import { Check, Loader2 } from "lucide-react";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FC, useEffect, useState } from "react";
 import { toast } from "sonner";
 
@@ -36,12 +36,14 @@ const CreateChapterModal: FC<CreateChapterModalProps> = ({}) => {
 
   const [selectImage, setSelectedImage] = useState<string>("");
   const params = useParams();
+  const router = useRouter();
 
   const noteId = params?.noteId as string;
 
   const { execute, isLoading } = useAction(createChapterAction, {
     onSuccess: (data) => {
       toast.success(`${data?.title} chapter created!`);
+      router?.push(`/chapter/${data?.id}`);
     },
     onError: (error) => {
       if (error === "304") {
@@ -121,7 +123,7 @@ const CreateChapterModal: FC<CreateChapterModalProps> = ({}) => {
                   className="hidden"
                   id="imageUrl"
                   name="imageUrl"
-                  value={image?.urls?.thumb}
+                  value={`${image?.urls?.full}`}
                   disabled={isLoading}
                   checked={selectImage === image?.id}
                   onChange={() => setSelectedImage(image?.id)}
