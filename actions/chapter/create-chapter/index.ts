@@ -24,9 +24,9 @@ const handler = async (req: formType): Promise<handlerOutputType> => {
     const { isPro } = await getSubscription();
 
     if (!isPro) {
-      const { noteLimit } = await getLimits();
+      const { chapterLimit } = await getLimits();
 
-      if (!(noteLimit < MAX_FREE_lIMIT_COUNT.chapters)) {
+      if (!(chapterLimit < MAX_FREE_lIMIT_COUNT.chapters)) {
         return {
           error: "304",
         };
@@ -64,6 +64,8 @@ const handler = async (req: formType): Promise<handlerOutputType> => {
     }
 
     revalidatePath(`/notes/${noteExist?.id}`);
+
+    console.log(isPro);
 
     if (!isPro) {
       await increaseLimit("chapter");

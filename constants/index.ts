@@ -3,3 +3,5 @@ export const MAX_FREE_lIMIT_COUNT = {
   workspace: 2,
   chapters: 3,
 };
+
+export const DAY_IN_MS = 86_400_000;

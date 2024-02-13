@@ -8,6 +8,7 @@ import { Toaster } from "sonner";
 import CreateNoteModal from "./(platform)/_components/create-notes-modal";
 import SubscriptionModal from "@components/global/subscription-modal";
 import CreateChapterModal from "@components/global/create-chapter-modal";
+import { getSubscription } from "@actions/subscription/get";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,12 +17,14 @@ export const metadata: Metadata = {
   description: "Writer a platform for devs and managers",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const { userId } = auth();
+
+  const { isPro } = await getSubscription();
 
   return (
     <ClerkProvider>
@@ -31,7 +34,7 @@ export default function RootLayout({
           <Toaster />
           <CreatWorkSpace />
           <CreateNoteModal />
-          <SubscriptionModal />
+          <SubscriptionModal isPro={isPro} />
           <CreateChapterModal />
           {children}
         </body>

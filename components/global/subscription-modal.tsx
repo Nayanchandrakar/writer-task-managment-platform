@@ -6,11 +6,13 @@ import { FC } from "react";
 import Image from "next/image";
 import { DialogFooter, DialogHeader } from "@components/ui/dialog";
 import { DialogDescription } from "@radix-ui/react-dialog";
-import { Button } from "@components/ui/button";
+import { SubscriptionButton } from "./subscription-button";
 
-interface SubscriptionModalProps {}
+interface SubscriptionModalProps {
+  isPro: boolean;
+}
 
-const SubscriptionModal: FC<SubscriptionModalProps> = ({}) => {
+const SubscriptionModal: FC<SubscriptionModalProps> = ({ isPro }) => {
   const subscription = useSubscription();
 
   return (
@@ -46,7 +48,7 @@ const SubscriptionModal: FC<SubscriptionModalProps> = ({}) => {
         </DialogDescription>
 
         <DialogFooter>
-          <Button className="w-full">Upgrade</Button>
+          <SubscriptionButton isPro={isPro} />
         </DialogFooter>
       </div>
     </DialogModal>

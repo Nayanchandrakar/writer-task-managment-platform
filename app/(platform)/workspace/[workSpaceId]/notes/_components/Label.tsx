@@ -1,4 +1,4 @@
-import { LucideIcon, Plus } from "lucide-react";
+import { CreditCard, LucideIcon } from "lucide-react";
 import { FC } from "react";
 import Icon from "./Icon";
 
@@ -17,7 +17,7 @@ const Label: FC<LabelProps> = ({ LabelIcon, name, isPro }) => {
           {name}
         </h2>
         <div className="flex space-x-1 text-gray-400 font-semibold text-sm items-center">
-          <Plus className="w-4 h-4 " />
+          <CreditCard className="w-4 h-4 " />
           <span>{isPro ? "Pro" : "Free"}</span>
         </div>
       </div>

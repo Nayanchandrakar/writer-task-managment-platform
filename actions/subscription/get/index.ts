@@ -1,4 +1,5 @@
 import { auth } from "@clerk/nextjs";
+import { DAY_IN_MS } from "@constants";
 import prismadb from "@lib/prismadb";
 
 export const getSubscription = async () => {
@@ -23,9 +24,11 @@ export const getSubscription = async () => {
     }
 
     const hasSubscription =
-      subscription.stripeCustomerId !== null &&
-      subscription.stripePaymentId !== null &&
-      subscription.price !== null;
+      subscription?.stripePriceId &&
+      subscription?.stripeCurrentPeriodEnd?.getTime()! * DAY_IN_MS >
+        Date.now() &&
+      subscription?.stripeCustomerId &&
+      subscription?.stripeSubscriptionId;
 
     return {
       isPro: !!hasSubscription,
