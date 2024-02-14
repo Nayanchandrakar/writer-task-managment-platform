@@ -1,6 +1,8 @@
 import Container from "@components/ui/shared/container";
 import { Chapter } from "@prisma/client";
+import { Plus } from "lucide-react";
 import Image from "next/image";
+import CreateTopicForm from "./create-topic-form";
 
 interface ListTopicsProps {
   chapter: Chapter;
@@ -16,8 +18,10 @@ const ListTopics = ({ chapter }: ListTopicsProps) => {
         src={chapter?.chapterImage}
         alt="chapter image"
       />
-      <Container className="w-full z-30 absolute inset-0 h-[12rem] mt-16">
-        asdf
+      <Container className="w-full z-30 absolute inset-0 h-[12rem] mt-16 grid grid-cols-6 ">
+        <div className="p-3">
+          <CreateTopicForm />
+        </div>
       </Container>
     </div>
   );
