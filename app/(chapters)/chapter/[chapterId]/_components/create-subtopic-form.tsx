@@ -1,9 +1,9 @@
 "use client";
 
-import { createTopic } from "@actions/topics/create";
+import { createSubTopic } from "@actions/subtopics/create";
 import FieldErrors from "@components/global/field-errors";
 import { Button, buttonVariants } from "@components/ui/button";
-import { Input } from "@components/ui/input";
+import { Textarea } from "@components/ui/textarea";
 import { useAction } from "@hooks/useAction";
 import { cn } from "@lib/utils";
 import { Plus, X } from "lucide-react";
@@ -11,21 +11,17 @@ import { ElementRef, FC, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 
-interface CreateTopicFormProps {
-  chapterId: string;
+interface CreateSubTopicFormProps {
+  topicId: string;
 }
 
-const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
+const CreateSubTopicForm: FC<CreateSubTopicFormProps> = ({ topicId }) => {
   const [IsEditing, setIsEditing] = useState(false);
 
-  const inputRef = useRef<ElementRef<"input">>(null);
   const formRef = useRef<ElementRef<"form">>(null);
 
   const handleEditing = () => {
     setIsEditing(true);
-    setTimeout(() => {
-      inputRef?.current?.focus();
-    });
   };
 
   const disableEditing = () => {
@@ -38,9 +34,9 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
     }
   };
 
-  const { fieldErrors, isLoading, execute } = useAction(createTopic, {
+  const { fieldErrors, isLoading, execute } = useAction(createSubTopic, {
     onSuccess: (data) => {
-      toast.success(`topic ${data?.name} is begin created!`);
+      toast.success(`topic ${data?.title} is begin created!`);
       disableEditing();
     },
     onError: (error) => {
@@ -55,7 +51,7 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
     const title = formData?.get("title") as string;
     execute({
       title,
-      chapterId,
+      topicId,
     });
   };
 
@@ -64,21 +60,17 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
       id="form_submit"
       ref={formRef}
       action={onSubmit}
-      className={cn(
-        "flex justify-start items-center w-full h-fit  rounded-md space-x-2 ",
-        IsEditing && "bg-white p-3"
-      )}
+      className={cn(IsEditing && "bg-white ")}
     >
       {IsEditing ? (
         <div className="">
-          <Input
-            ref={inputRef}
+          <Textarea
             id="title"
             name="title"
             disabled={isLoading}
             required
-            className="w-full h-8  rounded-md  "
-            placeholder="Enter topic name..."
+            className="w-full rounded-md focus-visible:ring-0 focus-visible:ring-transparent"
+            placeholder="Enter Subtopic title..."
           />
           <div className="flex items-center mt-3 space-x-2">
             <Button
@@ -88,7 +80,7 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
               className="bg-sky-700 hover:bg-sky-700/90 text-white"
               size="sm"
             >
-              Add topic
+              Add Subtopic
             </Button>
             <span
               onClick={disableEditing}
@@ -107,15 +99,15 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
         </div>
       ) : (
         <span
-          className=" w-full h-full hover:bg-white/40 bg-white/70 flex items-center space-x-2 p-3 rounded-md text-neutral-700 transition-colors duration-200   cursor-pointer"
+          className=" w-full h-full  flex items-center space-x-2  text-neutral-500 transition-colors duration-200  hover:text-neutral-600  cursor-pointer"
           onClick={handleEditing}
         >
           <Plus className="size-4" />
-          <span className="text-sm font-medium">Add Topic</span>
+          <span className="text-sm font-medium">Add a Subtopic</span>
         </span>
       )}
     </form>
   );
 };
 
-export default CreateTopicForm;
+export default CreateSubTopicForm;

@@ -59,6 +59,7 @@ model Topic {
   name      String
   chapterId String?    @db.ObjectId
   userId    String
+  position  Int
   chapters  Chapter?   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
   SubTopic  SubTopic[]
   createdAt DateTime   @default(now())
@@ -66,14 +67,17 @@ model Topic {
 }
 
 model SubTopic {
-  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  id          String  @id @default(auto()) @map("_id") @db.ObjectId
   title       String
-  description String
+  description String?
   userId      String
-  topicId     String?  @db.ObjectId
-  topics      Topic?   @relation(fields: [topicId], references: [id], onDelete: Cascade)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  position    Int
+
+  topicId String? @db.ObjectId
+  topics  Topic?  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model UserLimits {

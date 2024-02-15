@@ -24,10 +24,47 @@ const chapterIdPage = async ({ params }: chapterIdPageProps) => {
 
   if (!chapter) redirect("/");
 
+  const topics = await prismadb?.topic?.findMany({
+    where: {
+      chapterId: chapter?.id,
+      userId,
+    },
+    orderBy: {
+      position: "asc",
+    },
+  });
+
+  const topicIds = topics?.map((topic) => topic?.id) || [];
+
+  const subTopics = await prismadb?.subTopic?.findMany({
+    where: {
+      topicId: {
+        in: topicIds,
+      },
+      userId,
+    },
+    orderBy: {
+      position: "asc",
+    },
+  });
+
+  // Combine topics with their respective subtopics
+  const topicSubtopic = topics?.map((topic) => ({
+    ...topic,
+    subTopics: subTopics?.filter((subTopic) => subTopic.topicId === topic.id),
+  }));
+
+  console.log(topicSubtopic);
+
   return (
     <section className="mt-16 relative inset-0">
       <ChapterForm chapter={chapter} />
-      <ListTopics chapter={chapter} />
+
+      <ListTopics
+        chapterId={chapter?.id}
+        chapterImage={chapter?.chapterImage}
+        topics={topicSubtopic}
+      />
     </section>
   );
 };

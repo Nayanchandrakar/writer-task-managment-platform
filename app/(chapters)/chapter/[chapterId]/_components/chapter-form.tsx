@@ -9,7 +9,7 @@ interface ChapterFormProps {
 
 const ChapterForm = ({ chapter }: ChapterFormProps) => {
   return (
-    <div className="bg-black/20 text-white z-40 h-16 w-full absolute inset-0">
+    <div className="bg-black/50 text-white z-40 h-16 w-full absolute inset-0">
       <Container className="w-full flex items-center justify-between h-full">
         <TitleEditForm
           chapterTitle={chapter?.title}

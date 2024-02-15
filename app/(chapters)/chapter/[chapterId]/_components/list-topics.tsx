@@ -1,26 +1,30 @@
 import Container from "@components/ui/shared/container";
-import { Chapter } from "@prisma/client";
-import { Plus } from "lucide-react";
+import { SubTopic, Topic } from "@prisma/client";
 import Image from "next/image";
-import CreateTopicForm from "./create-topic-form";
+import MapTopics from "./map-topics";
 
 interface ListTopicsProps {
-  chapter: Chapter;
+  chapterImage: string;
+  chapterId: string;
+  topics: Topic[] &
+    {
+      subTopics: SubTopic[];
+    }[];
 }
 
-const ListTopics = ({ chapter }: ListTopicsProps) => {
+const ListTopics = ({ chapterId, chapterImage, topics }: ListTopicsProps) => {
   return (
     <div className="w-full h-full relative inset-0">
       <Image
         width={1000}
         height={1000}
         className="w-full h-full fixed inset-0 z-10 "
-        src={chapter?.chapterImage}
+        src={chapterImage}
         alt="chapter image"
       />
-      <Container className="w-full z-30 absolute inset-0 h-[12rem] mt-16 grid grid-cols-6 ">
-        <div className="p-3">
-          <CreateTopicForm />
+      <Container className="w-full z-30 absolute inset-0  mt-16  ">
+        <div className="p-3 flex gap-3 w-full h-full">
+          <MapTopics chapterId={chapterId} topics={topics} />
         </div>
       </Container>
     </div>
