@@ -1,3 +1,5 @@
+"use client";
+
 import { FC } from "react";
 import { SubTopic, Topic } from "@prisma/client";
 import CreateTopicForm from "./create-topic-form";
@@ -8,6 +10,11 @@ import {
 import { MoreVertical } from "lucide-react";
 import ToogleMenu from "@components/global/toogle-menu";
 import CreateSubTopicForm from "./create-subtopic-form";
+import Card from "./card";
+import TopicUpdateForm from "./topic-update-form";
+import { useAction } from "@hooks/useAction";
+import { copyTopics } from "@actions/topics/copy-topics";
+import { toast } from "sonner";
 
 interface MapTopicsProps {
   topics: Topic[] &
@@ -18,6 +25,15 @@ interface MapTopicsProps {
 }
 
 const MapTopics: FC<MapTopicsProps> = ({ topics, chapterId }) => {
+  const { isLoading, execute } = useAction(copyTopics, {
+    onSuccess: (data) => {
+      toast.success(`topic ${data?.name} is begin created!`);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   return (
     <div
       className="w-full h-full grid  grid-cols-1
@@ -26,27 +42,30 @@ const MapTopics: FC<MapTopicsProps> = ({ topics, chapterId }) => {
       {topics?.map((data) => (
         <div
           key={data?.id}
-          className="bg-white/80 p-3 h-fit w-full rounded-md   "
+          className="bg-white/20 backdrop-blur-sm p-3 h-fit w-full rounded-md  shadow-md shadow-black/10 "
         >
           <div className="flex items-center justify-between">
-            <span className="font-semibold first-letter:uppercase  text-sm">
-              {data?.name}
-            </span>
+            <TopicUpdateForm topicName={data?.name} topicId={data?.id} />
             <ToogleMenu
               actionName="Topic actions"
               ToogleButton={<MoreVertical className="size-4 cursor-pointer" />}
             >
               <DropdownMenuItem>Add topic...</DropdownMenuItem>
-              <DropdownMenuItem>Copy topic...</DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={isLoading}
+                onClick={() => execute({ topicId: data?.id })}
+              >
+                Copy topic...
+              </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-zinc-200" />
               <DropdownMenuItem>Delete this topic</DropdownMenuItem>
             </ToogleMenu>
           </div>
 
-          <div className="py-2">
+          <div className="py-3 space-y-3">
             {/* @ts-ignore  */}
             {data?.subTopics?.map((subTopicOutput) => (
-              <div className="">const</div>
+              <Card subTopic={subTopicOutput} key={subTopicOutput?.id} />
             ))}
           </div>
           <CreateSubTopicForm topicId={data?.id} />

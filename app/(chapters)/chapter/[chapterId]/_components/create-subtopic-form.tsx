@@ -56,12 +56,7 @@ const CreateSubTopicForm: FC<CreateSubTopicFormProps> = ({ topicId }) => {
   };
 
   return (
-    <form
-      id="form_submit"
-      ref={formRef}
-      action={onSubmit}
-      className={cn(IsEditing && "bg-white ")}
-    >
+    <form id="form_submit" ref={formRef} action={onSubmit}>
       {IsEditing ? (
         <div className="">
           <Textarea
