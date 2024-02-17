@@ -65,8 +65,6 @@ const handler = async (req: formType): Promise<handlerOutputType> => {
 
     revalidatePath(`/notes/${noteExist?.id}`);
 
-    console.log(isPro);
-
     if (!isPro) {
       await increaseLimit("chapter");
     }

@@ -19,7 +19,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     const { topicId } = req;
 
-    const topicExist = await prismadb?.topic?.findUnique({
+    const topicExist = await prismadb?.topic?.findFirst({
       where: {
         id: topicId,
         userId,
@@ -52,7 +52,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     const position = lastTopic?.position ? lastTopic?.position + 1 : 0;
 
-    const subTopics = await prismadb?.subTopic?.findMany({
+    const allSubTopics = await prismadb?.subTopic?.findMany({
       where: {
         userId,
         topicId: topicExist?.id,
@@ -61,28 +61,42 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
         title: true,
         description: true,
         position: true,
-        topicId: true,
-        userId: true,
       },
     });
 
-    const copyTopic = await prismadb?.topic?.create({
+    const copyTopicCreate = await prismadb?.topic?.create({
       data: {
         name: `${topicExist?.name} - Copy`,
         position,
         userId,
-        SubTopic: {
-          createMany: {
-            data: subTopics,
-          },
-        },
+        chapterId: topicExist?.chapterId,
       },
     });
+
+    if (!copyTopicCreate) {
+      return {
+        error: "database error occured!",
+      };
+    }
+
+    const hasData = !!(allSubTopics?.length === 0);
+
+    if (hasData) {
+      const SubTopics = allSubTopics?.map((data) => ({
+        ...data,
+        userId,
+        topicId: copyTopicCreate?.id,
+      }));
+
+      const subTopicsCreate = await prismadb?.subTopic?.createMany({
+        data: SubTopics,
+      });
+    }
 
     revalidatePath(`/chapter/${topicExist?.chapterId}`);
 
     return {
-      data: copyTopic,
+      data: copyTopicCreate,
     };
   } catch (error) {
     console.log(error);

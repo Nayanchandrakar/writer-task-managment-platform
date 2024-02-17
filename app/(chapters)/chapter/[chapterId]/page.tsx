@@ -54,8 +54,6 @@ const chapterIdPage = async ({ params }: chapterIdPageProps) => {
     subTopics: subTopics?.filter((subTopic) => subTopic.topicId === topic.id),
   }));
 
-  console.log(topicSubtopic);
-
   return (
     <section className="mt-16 relative inset-0">
       <ChapterForm chapter={chapter} />

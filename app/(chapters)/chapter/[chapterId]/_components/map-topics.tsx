@@ -3,10 +3,6 @@
 import { FC } from "react";
 import { SubTopic, Topic } from "@prisma/client";
 import CreateTopicForm from "./create-topic-form";
-import {
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-} from "@components/ui/dropdown-menu";
 import { MoreVertical } from "lucide-react";
 import ToogleMenu from "@components/global/toogle-menu";
 import CreateSubTopicForm from "./create-subtopic-form";
@@ -15,6 +11,7 @@ import TopicUpdateForm from "./topic-update-form";
 import { useAction } from "@hooks/useAction";
 import { copyTopics } from "@actions/topics/copy-topics";
 import { toast } from "sonner";
+import { deleteTopic } from "@actions/topics/delete";
 
 interface MapTopicsProps {
   topics: Topic[] &
@@ -28,6 +25,15 @@ const MapTopics: FC<MapTopicsProps> = ({ topics, chapterId }) => {
   const { isLoading, execute } = useAction(copyTopics, {
     onSuccess: (data) => {
       toast.success(`topic ${data?.name} is begin created!`);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const deleteChapter = useAction(deleteTopic, {
+    onSuccess: (data) => {
+      toast.success(`topic ${data?.name} is deleted succefully!`);
     },
     onError: (error) => {
       toast.error(error);
@@ -50,15 +56,20 @@ const MapTopics: FC<MapTopicsProps> = ({ topics, chapterId }) => {
               actionName="Topic actions"
               ToogleButton={<MoreVertical className="size-4 cursor-pointer" />}
             >
-              <DropdownMenuItem>Add topic...</DropdownMenuItem>
-              <DropdownMenuItem
-                disabled={isLoading}
+              <div
+                aria-disabled={true}
+                className="w-full cursor-pointer h-fit p-2 text-sm rounded-md transition-colors duration-200 hover:bg-slate-100"
                 onClick={() => execute({ topicId: data?.id })}
               >
                 Copy topic...
-              </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-zinc-200" />
-              <DropdownMenuItem>Delete this topic</DropdownMenuItem>
+              </div>
+
+              <div
+                className="w-full cursor-pointer  h-fit p-2 text-sm rounded-md transition-colors duration-200 hover:bg-slate-100"
+                onClick={() => deleteChapter?.execute({ topicId: data?.id })}
+              >
+                Delete this topic
+              </div>
             </ToogleMenu>
           </div>
 

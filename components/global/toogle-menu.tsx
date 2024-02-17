@@ -1,12 +1,15 @@
 "use client";
 
 import { Button } from "@components/ui/button";
+
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@components/ui/dropdown-menu";
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+
 import { X } from "lucide-react";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 interface ToogleMenuProps {
   ToogleButton: React.ReactNode;
@@ -20,9 +23,11 @@ const ToogleMenu = ({
   actionName,
 }: ToogleMenuProps) => {
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>{ToogleButton}</DropdownMenuTrigger>
-      <DropdownMenuContent className="w-72 ">
+    <Popover>
+      <PopoverTrigger className="" asChild>
+        {ToogleButton}
+      </PopoverTrigger>
+      <PopoverContent className="w-72 ">
         <div className="flex items-center flex-row justify-between">
           <span className="px-4" />
 
@@ -30,14 +35,17 @@ const ToogleMenu = ({
             {actionName}
           </span>
 
-          <Button variant="ghost" size="sm">
-            <X className="size-4" />
-          </Button>
+          <PopoverClose>
+            <Button variant="ghost" size="sm">
+              <X className="size-4" />
+            </Button>
+          </PopoverClose>
         </div>
 
+        <hr className="mt-1.5" />
         <div className="py-3">{children}</div>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </PopoverContent>
+    </Popover>
   );
 };
 
