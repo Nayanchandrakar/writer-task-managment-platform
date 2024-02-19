@@ -9,6 +9,7 @@ import CreateNoteModal from "./(platform)/_components/create-notes-modal";
 import SubscriptionModal from "@components/global/subscription-modal";
 import CreateChapterModal from "@components/global/create-chapter-modal";
 import { getSubscription } from "@actions/subscription/get";
+import SubTopicToogleModal from "./(chapters)/chapter/[chapterId]/_components/modal/subtopic-toogle-modal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -36,6 +37,7 @@ export default async function RootLayout({
           <CreateNoteModal />
           <SubscriptionModal isPro={isPro} />
           <CreateChapterModal />
+          {/* <SubTopicToogleModal /> */}
           {children}
         </body>
       </html>

@@ -38,6 +38,7 @@ const TopicsContainer: FC<TopicsContainerProps> = ({ data, index }) => {
                   {data?.SubTopic?.map((subTopicOutput, index) => {
                     return (
                       <Card
+                        topicName={data?.name}
                         key={subTopicOutput?.id}
                         index={index}
                         subTopic={subTopicOutput}

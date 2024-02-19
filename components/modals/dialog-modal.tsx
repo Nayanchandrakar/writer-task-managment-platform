@@ -6,7 +6,7 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 interface DialogModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onOpen: () => void;
+  onOpen?: () => void;
   children: React.ReactNode;
   className?: string;
 }
