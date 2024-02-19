@@ -1,19 +1,12 @@
 "use client";
-
 import { FC } from "react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { MoreVertical } from "lucide-react";
-import { useAction } from "@hooks/useAction";
-import { deleteChapter } from "@actions/chapter/delete";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { MoreVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
+
+import ToogleMenu from "@components/global/toogle-menu";
+import { deleteChapter } from "@actions/chapter/delete";
+import { useAction } from "@hooks/useAction";
 
 interface ChapterNavbarActionsProps {
   chapterId: string;
@@ -42,22 +35,17 @@ const ChapterNavbarActions: FC<ChapterNavbarActionsProps> = ({ chapterId }) => {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger className="outline-none hover:bg-white/10 transition-colors duration-200 p-2 rounded-md">
-        <MoreVertical className="size-5 " />
-      </DropdownMenuTrigger>
-      <DropdownMenuContent className="mr-6 mt-6">
-        <DropdownMenuLabel>chapter actions</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem
-          disabled={isLoading}
-          onClick={() => handleDelete()}
-          className={`cursor-pointer disabled:opacity-90`}
-        >
-          delete chapter
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <ToogleMenu
+      actionName="chapter actions"
+      ToogleButton={<MoreVertical className="size-5 cursor-pointer" />}
+    >
+      <div
+        className="w-full cursor-pointer h-fit p-2 text-sm rounded-md transition-colors duration-200 hover:bg-slate-100 disabled:opacity-90"
+        onClick={() => handleDelete()}
+      >
+        delete chapter
+      </div>
+    </ToogleMenu>
   );
 };
 

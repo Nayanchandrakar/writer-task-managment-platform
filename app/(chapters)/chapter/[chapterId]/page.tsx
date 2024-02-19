@@ -1,8 +1,8 @@
 import { auth } from "@clerk/nextjs";
 import prismadb from "@lib/prismadb";
 import { redirect } from "next/navigation";
-import ChapterForm from "./_components/chapter-form";
 import ListTopics from "./_components/list-topics";
+import Container from "@components/ui/shared/container";
 
 interface chapterIdPageProps {
   params: {
@@ -15,55 +15,28 @@ const chapterIdPage = async ({ params }: chapterIdPageProps) => {
 
   if (!userId) redirect("/");
 
-  const chapter = await prismadb?.chapter?.findFirst({
-    where: {
-      userId,
-      id: params?.chapterId,
-    },
-  });
-
-  if (!chapter) redirect("/");
-
   const topics = await prismadb?.topic?.findMany({
     where: {
-      chapterId: chapter?.id,
       userId,
+      chapterId: params?.chapterId,
     },
-    orderBy: {
-      position: "asc",
-    },
-  });
-
-  const topicIds = topics?.map((topic) => topic?.id) || [];
-
-  const subTopics = await prismadb?.subTopic?.findMany({
-    where: {
-      topicId: {
-        in: topicIds,
+    include: {
+      SubTopic: {
+        orderBy: {
+          position: "asc",
+        },
       },
-      userId,
     },
     orderBy: {
       position: "asc",
     },
   });
-
-  // Combine topics with their respective subtopics
-  const topicSubtopic = topics?.map((topic) => ({
-    ...topic,
-    subTopics: subTopics?.filter((subTopic) => subTopic.topicId === topic.id),
-  }));
 
   return (
-    <section className="mt-16 relative inset-0">
-      <ChapterForm chapter={chapter} />
-
-      <ListTopics
-        chapterId={chapter?.id}
-        chapterImage={chapter?.chapterImage}
-        topics={topicSubtopic}
-      />
-    </section>
+    <Container className=" h-full overflow-x-hidden">
+      {/* @ts-ignore  */}
+      <ListTopics topics={topics} chapterId={params?.chapterId} />
+    </Container>
   );
 };
 

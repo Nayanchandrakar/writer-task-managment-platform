@@ -1,18 +1,65 @@
 import { auth } from "@clerk/nextjs";
-import { Metadata } from "next";
-import { redirect } from "next/navigation";
+import prismadb from "@lib/prismadb";
+import { notFound, redirect } from "next/navigation";
+import ChapterForm from "./chapter/[chapterId]/_components/chapter-form";
 
-export const metadata: Metadata = {
-  title: "welcome to chapters page",
-  description: "write your own thoughts and manage it .",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: { chapterId: string };
+}) {
+  const { userId } = auth();
 
-const ChapterLayout = async ({ children }: { children: React.ReactNode }) => {
+  if (!userId) {
+    return {
+      title: "Chapter",
+    };
+  }
+
+  const chapter = await prismadb.chapter.findFirst({
+    where: {
+      id: params.chapterId,
+      userId,
+    },
+  });
+
+  return {
+    title: chapter?.title || "Chapter",
+  };
+}
+
+const ChapterLayout = async ({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: { chapterId: string };
+}) => {
   const { userId } = auth();
 
   if (!userId) redirect("/");
 
-  return <div className="mt-16 ">{children}</div>;
+  const chapter = await prismadb?.chapter?.findFirst({
+    where: {
+      userId,
+      id: params?.chapterId,
+    },
+  });
+
+  if (!chapter) {
+    return notFound();
+  }
+
+  return (
+    <div
+      className="relative h-screen bg-no-repeat bg-cover bg-center"
+      style={{ backgroundImage: `url(${chapter?.chapterImage})` }}
+    >
+      <ChapterForm chapter={chapter} />
+      <div className="absolute  inset-0 bg-black/10 " />
+      <main className="relative pt-40 h-full">{children}</main>
+    </div>
+  );
 };
 
 export default ChapterLayout;

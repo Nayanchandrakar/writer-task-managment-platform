@@ -81,7 +81,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     const hasData = !!(allSubTopics?.length === 0);
 
-    if (hasData) {
+    if (!hasData) {
       const SubTopics = allSubTopics?.map((data) => ({
         ...data,
         userId,

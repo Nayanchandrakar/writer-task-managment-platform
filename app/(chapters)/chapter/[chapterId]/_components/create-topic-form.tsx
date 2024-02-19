@@ -65,12 +65,12 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
       ref={formRef}
       action={onSubmit}
       className={cn(
-        "flex justify-start items-center w-full h-fit  rounded-md space-x-2 ",
+        "flex justify-start items-center  w-full h-fit  rounded-md space-x-2 ",
         IsEditing && "bg-white p-3"
       )}
     >
       {IsEditing ? (
-        <div className="">
+        <div className="w-full">
           <Input
             ref={inputRef}
             id="title"

@@ -36,8 +36,6 @@ const TitleEditForm: FC<TitleEditFormProps> = ({
     },
   });
 
-  console.log(error, fieldErrors);
-
   const disableEditing = () => {
     setIsEditing(false);
   };
