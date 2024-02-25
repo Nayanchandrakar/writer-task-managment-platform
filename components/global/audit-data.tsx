@@ -1,15 +1,12 @@
-import { User } from "@clerk/nextjs/server";
-import { ActivityLog } from "@prisma/client";
 import Image from "next/image";
-import { FC } from "react";
 import dayjs from "dayjs";
+import { AuditLogCustom } from "../../types/types";
 
 interface AuditDataProps {
-  logs: ActivityLog;
-  user: Pick<User, "firstName" | "lastName" | "imageUrl"> | undefined | null;
+  logs: AuditLogCustom;
 }
 
-const AuditData: FC<AuditDataProps> = ({ logs, user }) => {
+const AuditData = ({ logs }: AuditDataProps) => {
   const createdAt = dayjs(logs?.createdAt).toString();
 
   return (
@@ -19,13 +16,13 @@ const AuditData: FC<AuditDataProps> = ({ logs, user }) => {
         height={100}
         sizes="100vw"
         alt="profile-image"
-        src={user?.imageUrl!}
+        src={logs?.imageUrl!}
         className="size-9 aspect-square rounded-full"
       />
       <div className="flex flex-col gap-y-0.5 items-start">
         <p className="lowercase text-zinc-500 text-sm font-normal">
           <span className="font-bold text-black">
-            {user?.firstName} {user?.lastName}
+            {logs?.firstName} {logs?.lastName}
           </span>
           {logs?.entitOperation} {logs?.entityType} &ldquo;{logs?.entityTitle}
           &rdquo;

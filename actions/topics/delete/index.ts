@@ -6,6 +6,7 @@ import { formSchemaType, formSchema } from "./schema";
 import { handlerOutputType } from "./type";
 import prismadb from "../../../lib/prismadb";
 import { revalidatePath } from "next/cache";
+import { createAuditLog } from "@actions/audit/createAuditLog";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -47,6 +48,13 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
         error: "database error occured!",
       };
     }
+
+    await createAuditLog({
+      entitOperation: "DELETE",
+      entityId: deleteTopic?.id,
+      entityTitle: deleteTopic?.name,
+      entityType: "TOPIC",
+    });
 
     revalidatePath(`/chapter/${deleteTopic?.chapterId}`);
 

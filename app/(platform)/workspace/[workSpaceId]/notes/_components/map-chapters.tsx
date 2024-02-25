@@ -9,7 +9,7 @@ interface MapChaptersProps {
   isPro: boolean;
 }
 
-const MapChapters = ({ chapters, workSpaceId, isPro }: MapChaptersProps) => {
+const MapChapters = ({ chapters, isPro }: MapChaptersProps) => {
   return (
     <>
       <div className="flex items-center gap-x-3">

@@ -52,7 +52,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
     }
 
     if (!isPro) {
-      await increaseLimit("note");
+      await increaseLimit("workspace");
     }
 
     revalidatePath(`/workspace/${WorkSpace?.id}`);

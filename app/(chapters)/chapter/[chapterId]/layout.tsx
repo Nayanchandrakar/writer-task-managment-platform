@@ -1,7 +1,7 @@
 import { auth } from "@clerk/nextjs";
 import prismadb from "@lib/prismadb";
 import { notFound, redirect } from "next/navigation";
-import ChapterForm from "./chapter/[chapterId]/_components/chapter-form";
+import ChapterForm from "./_components/chapter-form";
 
 export async function generateMetadata({
   params,

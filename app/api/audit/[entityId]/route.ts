@@ -1,4 +1,4 @@
-import { auth } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 import prismadb from "@lib/prismadb";
 import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
@@ -26,16 +26,7 @@ export const GET = async (
       return new Response("please provide an entity id");
     }
 
-    const isValidID = await prismadb?.topic?.findFirst({
-      where: {
-        userId,
-        id: entityId,
-      },
-    });
-
-    if (!isValidID) {
-      return new Response("No topic exist with this id", { status: 404 });
-    }
+    const user = await currentUser();
 
     const AuditLogData = await prismadb?.activityLog?.findMany({
       where: {
@@ -49,7 +40,14 @@ export const GET = async (
       take: 3,
     });
 
-    return NextResponse.json(AuditLogData);
+    const data = AuditLogData?.map((audit) => ({
+      ...audit,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      imageUrl: user?.imageUrl,
+    }));
+
+    return NextResponse.json(data);
   } catch (error) {
     return new Response("Internal server error!", { status: 500 });
   }

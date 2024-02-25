@@ -53,7 +53,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       entitOperation: "DELETE",
       entityTitle: deleteTopic?.title,
       entityType: "SUBTOPIC",
-      entityId: deleteTopic?.topicId!,
+      entityId: deleteTopic?.id!,
     });
 
     revalidatePath(`/chapter`);

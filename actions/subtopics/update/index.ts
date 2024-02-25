@@ -47,7 +47,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     await createAuditLog({
       entitOperation: "UPDATE",
-      entityId: updateSubTopic?.topicId!,
+      entityId: updateSubTopic?.id!,
       entityTitle: updateSubTopic?.title,
       entityType: "SUBTOPIC",
     });

@@ -63,7 +63,7 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
 
     await createAuditLog({
       entitOperation: "CREATE",
-      entityId: topic?.id,
+      entityId: createSubTopic?.id,
       entityTitle: createSubTopic?.title,
       entityType: "SUBTOPIC",
     });

@@ -1,8 +1,8 @@
-import { auth } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 import prismadb from "@lib/prismadb";
-import { ActivityLog } from "@prisma/client";
+import { AuditLogCustom } from "../../types/types";
 
-let AuditLogs: ActivityLog[] = [
+let AuditLogs: AuditLogCustom[] = [
   {
     createdAt: new Date(),
     entitOperation: "CREATE",
@@ -12,6 +12,9 @@ let AuditLogs: ActivityLog[] = [
     id: "",
     updatedAt: new Date(),
     userId: "",
+    firstName: "",
+    lastName: "",
+    imageUrl: "",
   },
 ];
 
@@ -23,7 +26,9 @@ export const getUserAudits = async () => {
       return AuditLogs;
     }
 
-    AuditLogs = await prismadb?.activityLog?.findMany({
+    const user = await currentUser();
+
+    const activities = await prismadb?.activityLog?.findMany({
       where: {
         userId,
       },
@@ -33,7 +38,14 @@ export const getUserAudits = async () => {
       take: 4,
     });
 
-    return AuditLogs;
+    const data = activities?.map((audit) => ({
+      ...audit,
+      firstName: user?.firstName!,
+      lastName: user?.lastName!,
+      imageUrl: user?.imageUrl!,
+    }));
+
+    return data;
   } catch (error) {
     return AuditLogs;
   }

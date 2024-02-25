@@ -72,7 +72,7 @@ const SubTopicToogleModal = ({
       </div>
 
       <HeadingShortner Icon={Activity} title="Activity">
-        <MapAcitivities entityId={data?.topicId!} />
+        <MapAcitivities entityId={data?.id!} />
       </HeadingShortner>
     </DialogModal>
   );
