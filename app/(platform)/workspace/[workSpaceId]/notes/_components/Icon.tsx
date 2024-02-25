@@ -11,7 +11,7 @@ const Icon: FC<IconProps> = ({ Icon, className }) => {
   return (
     <div
       className={cn(
-        "size-16 flex items-center justify-center bg-gradient-to-r from-pink-500 to-yellow-500  rounded-lg",
+        "size-16 flex items-center justify-center bg-gradient-to-r from-fuchsia-600 to-pink-600  rounded-lg",
         className
       )}
     >
