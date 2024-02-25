@@ -5,8 +5,9 @@ import { MAX_FREE_lIMIT_COUNT } from "@constants/index";
 const FreeLimitsCounter = async () => {
   const { workSpaceLimit } = await getLimits();
 
-  const percentage =
-    Math.floor(MAX_FREE_lIMIT_COUNT?.workspace / workSpaceLimit) * 100;
+  const percentage = Math.floor(
+    (workSpaceLimit / MAX_FREE_lIMIT_COUNT?.workspace) * 100
+  );
 
   return (
     <div className="bg-gray-100 rounded-lg w-full h-fit p-8 flex flex-col space-y-3 items-start justify-center">

@@ -7,7 +7,7 @@ const Logo: FC<LogoProps> = ({}) => {
   return (
     <Link
       href="/"
-      className="md:inline-block hidden font-bold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"
+      className="inline-block font-bold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-600 to-pink-600"
     >
       Writer
     </Link>

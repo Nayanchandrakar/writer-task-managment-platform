@@ -1,56 +1,71 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRightCircle } from "lucide-react";
+import { ArrowRightCircle, Star } from "lucide-react";
 
 import Container from "@components/ui/shared/container";
 import CallToAction from "@components/ui/shared/call-to-action";
 
 const HomePage = () => {
+  const trial = [2, 2, 2, 2, 2];
+
   return (
     <>
-      <Container className="bg-gray-100/60">
-        <section className=" bg-opacity-30 py-10 sm:py-14 lg:py-20">
-          <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
-            <div>
-              <p className="text-base font-semibold tracking-wider text-blue-700 uppercase">
-                A Platform for Managers
-              </p>
-              <h1 className="mt-4 text-4xl font-bold text-black lg:mt-8 sm:text-6xl xl:text-8xl">
-                Write & manage your task.
-              </h1>
-              <p className="mt-4 text-base text-black lg:mt-8 sm:text-xl">
-                Grow your career fast with writer.
-              </p>
-              <p className="mt-5 text-gray-600">
-                Already joined us?{" "}
+      <Container className="">
+        <section className="pb-40 pt-32 md:pt-16">
+          <div className="absolute bottom-0 right-0 overflow-hidden">
+            <img
+              className="w-full h-auto origin-bottom-right transform scale-150 lg:w-auto lg:mx-auto lg:object-cover lg:scale-75"
+              src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/1/background-pattern.png"
+              alt=""
+            />
+          </div>
+
+          <div className="relative ">
+            <div className="grid grid-cols-1 gap-y-4 lg:items-center lg:grid-cols-2 xl:grid-cols-2">
+              <div className="text-center xl:col-span-1 lg:text-left md:px-16 lg:px-0 xl:pr-20">
+                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl sm:leading-tight lg:text-6xl lg:leading-tight font-pj">
+                  An tool that helps you to manage your code.
+                </h1>
+                <p className="mt-2 text-lg text-gray-600 sm:mt-6 font-inter">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                  Vehicula massa in enim luctus. Rutrum arcu.
+                </p>
+
                 <Link
-                  href="/sign-in"
-                  className="text-black transition-all duration-200 hover:underline"
+                  href="/workspace"
+                  className="inline-flex px-8 py-4 mt-8 text-lg font-bold text-white transition-all duration-200 bg-gray-900 border border-transparent rounded sm:mt-10 font-pj hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900"
+                  role="button"
                 >
-                  Log in
+                  Try writer tools
                 </Link>
-              </p>
 
-              <Link
-                href="/workspace"
-                className="inline-flex items-center px-6 py-4 mt-6  font-semibold text-black transition-all duration-200 bg-yellow-300 rounded-full lg:mt-8 hover:bg-yellow-400 focus:bg-yellow-400"
-                role="button"
-              >
-                Get writer for free
-                <ArrowRightCircle className="w-6 h-6 ml-8 -mr-2" />
-              </Link>
-            </div>
+                <div className="mt-8 sm:mt-16">
+                  <div className="flex items-center justify-center lg:justify-start">
+                    {trial?.map((e) => (
+                      <Star className="size-6 fill-yellow-400 stroke-none" />
+                    ))}
+                  </div>
 
-            <div>
-              <Image
-                width={100}
-                height={100}
-                sizes="100vw"
-                priority
-                className="w-full"
-                src="https://cdn.rareblocks.xyz/collection/celebration/images/hero/1/hero-img.png"
-                alt="image-not-found"
-              />
+                  <blockquote className="mt-6">
+                    <p className="text-lg font-bold text-gray-900 font-pj">
+                      Best task managment tool in market!
+                    </p>
+                    <p className="mt-3 text-base leading-7 text-gray-600 font-inter">
+                      Consectetur adipiscing elit. Vehicula massa in enim
+                      luctus. Rutrum arcu, aliquam nulla tincidunt gravida.
+                      Cursus convallis dolor semper pretium ornare.
+                    </p>
+                  </blockquote>
+                </div>
+              </div>
+
+              <div className="xl:col-span-1">
+                <img
+                  className="w-full mx-auto"
+                  src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/1/illustration.png"
+                  alt=""
+                />
+              </div>
             </div>
           </div>
         </section>
