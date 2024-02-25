@@ -6,6 +6,12 @@ import HeadingShortner from "./heading-shortner";
 import { Activity, Layers, Text } from "lucide-react";
 import { Textarea } from "@components/ui/textarea";
 import SubTopicActions from "./subtopic-actions";
+import { useAction } from "@hooks/useAction";
+import { updateSubTopic } from "@actions/subtopics/update";
+import { toast } from "sonner";
+import { useState } from "react";
+import MapAcitivities from "../map-activitylog";
+import { useRouter } from "next/navigation";
 
 const SubTopicToogleModal = ({
   data,
@@ -15,6 +21,28 @@ const SubTopicToogleModal = ({
   topicName: string;
 }) => {
   const subTopicToogleModal = useSubTopicToogleModal();
+  const router = useRouter();
+  const [subTopicDesc, setsubTopicDesc] = useState<string>(
+    data?.description || ""
+  );
+
+  const { isLoading, execute, error } = useAction(updateSubTopic, {
+    onSuccess: (data) => {
+      toast.success(`subTopic updated`);
+      router?.refresh();
+    },
+    onError: (error) => toast.error(error),
+  });
+
+  const handleUpdate = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e?.key === "Enter" && subTopicDesc) {
+      execute({
+        subTopicId: data?.id,
+        description: subTopicDesc,
+      });
+    }
+    return;
+  };
 
   return (
     <DialogModal
@@ -32,7 +60,11 @@ const SubTopicToogleModal = ({
       <div className="flex items-center gap-x-4 w-full">
         <HeadingShortner className="w-[60%] " Icon={Text} title="Description">
           <Textarea
+            disabled={isLoading}
+            onChange={(e) => setsubTopicDesc(e?.target?.value)}
+            value={subTopicDesc}
             className="bg-zinc-100 w-full resize-none focus-visible:ring-0 focus-visible:ring-offset-0"
+            onKeyUp={(e) => handleUpdate(e)}
             placeholder="Enter you description here..."
           />
         </HeadingShortner>
@@ -40,7 +72,7 @@ const SubTopicToogleModal = ({
       </div>
 
       <HeadingShortner Icon={Activity} title="Activity">
-        {/* for looping activity here  */}
+        <MapAcitivities entityId={data?.topicId!} />
       </HeadingShortner>
     </DialogModal>
   );

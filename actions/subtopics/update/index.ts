@@ -18,67 +18,44 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
       };
     }
 
-    const { subTopicId } = req;
+    const { subTopicId, description } = req;
 
-    const subTopicExist = await prismadb?.subTopic?.findFirst({
+    const subTopic = await prismadb?.subTopic?.findFirst({
       where: {
         id: subTopicId,
-        userId,
       },
       select: {
         id: true,
-        title: true,
-        topicId: true,
       },
     });
 
-    if (!subTopicExist) {
+    if (!subTopic) {
       return {
-        error: "no sub-topic exists!",
+        error: "invalid subTopic id",
       };
     }
 
-    const lastSubTopic = await prismadb?.topic?.findFirst({
+    const updateSubTopic = await prismadb?.subTopic?.update({
       where: {
-        id: subTopicExist?.id,
+        id: subTopic?.id,
         userId,
       },
-      orderBy: {
-        position: "desc",
-      },
-      select: {
-        position: true,
-      },
-    });
-
-    const position = lastSubTopic?.position ? lastSubTopic?.position + 1 : 0;
-
-    const copyiedSubTopic = await prismadb?.subTopic?.create({
       data: {
-        title: `${subTopicExist?.title} - Copy`,
-        position,
-        userId,
-        topicId: subTopicExist?.topicId,
+        description: description || "",
       },
     });
-
-    if (!copyiedSubTopic) {
-      return {
-        error: "database error occured!",
-      };
-    }
 
     await createAuditLog({
-      entitOperation: "CREATE",
-      entityTitle: copyiedSubTopic?.title,
+      entitOperation: "UPDATE",
+      entityId: updateSubTopic?.topicId!,
+      entityTitle: updateSubTopic?.title,
       entityType: "SUBTOPIC",
-      entityId: copyiedSubTopic?.id,
     });
 
     revalidatePath(`/chapter`);
 
     return {
-      data: copyiedSubTopic,
+      data: updateSubTopic,
     };
   } catch (error) {
     console.log(error);
@@ -88,4 +65,4 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   }
 };
 
-export const copySubTopic = actionHandler(formSchema, handler);
+export const updateSubTopic = actionHandler(formSchema, handler);

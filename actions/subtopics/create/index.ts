@@ -6,6 +6,7 @@ import { formSchemaType, formSchema } from "./schema";
 import { handlerOutputType } from "./type";
 import prismadb from "../../../lib/prismadb";
 import { revalidatePath } from "next/cache";
+import { createAuditLog } from "@actions/audit/createAuditLog";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -59,6 +60,13 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
     });
 
     revalidatePath(`/chapter/${topic?.id}`);
+
+    await createAuditLog({
+      entitOperation: "CREATE",
+      entityId: topic?.id,
+      entityTitle: createSubTopic?.title,
+      entityType: "SUBTOPIC",
+    });
 
     return {
       data: createSubTopic,

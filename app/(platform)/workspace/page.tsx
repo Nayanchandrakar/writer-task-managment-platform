@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import WorkSpaceCard from "./_components/workspace-card";
 import { getCounters } from "@actions/workspace/counts";
 import { getSubscription } from "@actions/subscription/get";
+import UserAudits from "../_components/user-audits";
 
 const workSpacePage = async ({}) => {
   const { userId } = auth();
@@ -22,6 +23,8 @@ const workSpacePage = async ({}) => {
           <WorkSpaceCard counts={workSpaceCount} label="Total Workspaces" />
           <WorkSpaceCard counts={notesCount} label="Total Notes" />
         </div>
+
+        {isPro && <UserAudits />}
       </div>
     </Container>
   );

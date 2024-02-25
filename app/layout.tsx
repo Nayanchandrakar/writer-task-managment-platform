@@ -37,7 +37,7 @@ export default async function RootLayout({
           <CreateNoteModal />
           <SubscriptionModal isPro={isPro} />
           <CreateChapterModal />
-          {/* <SubTopicToogleModal /> */}
+
           {children}
         </body>
       </html>
