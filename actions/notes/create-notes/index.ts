@@ -9,6 +9,7 @@ import { revalidatePath } from "next/cache";
 import { getSubscription } from "@actions/subscription/get";
 import { MAX_FREE_lIMIT_COUNT } from "@constants";
 import { getLimits, increaseLimit } from "@actions/global/getLimits";
+import { createAuditLog } from "@actions/audit/createAuditLog";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -63,6 +64,13 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
     if (!isPro) {
       await increaseLimit("note");
     }
+
+    await createAuditLog({
+      entitOperation: "CREATE",
+      entityId: createNotes?.id,
+      entityTitle: createNotes?.noteTitle,
+      entityType: "NOTE",
+    });
 
     revalidatePath(`/workspace/${createNotes?.id}`);
 

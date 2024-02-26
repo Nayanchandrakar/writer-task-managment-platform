@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
 
@@ -5,11 +6,15 @@ interface LogoProps {}
 
 const Logo: FC<LogoProps> = ({}) => {
   return (
-    <Link
-      href="/"
-      className="inline-block font-bold text-3xl bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-600 to-pink-600"
-    >
-      Writer
+    <Link href="/" className="md:inline-block hidden">
+      <Image
+        alt="image-not-available"
+        sizes="100vw"
+        className="w-24 h-12 mix-blend-multiply "
+        src="/images/logo.jpg"
+        width={1000}
+        height={1000}
+      />
     </Link>
   );
 };

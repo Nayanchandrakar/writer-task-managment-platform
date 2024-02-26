@@ -1,29 +1,12 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import prismadb from "@lib/prismadb";
-import { AuditLogCustom } from "../../types/types";
 
-let AuditLogs: AuditLogCustom[] = [
-  {
-    createdAt: new Date(),
-    entitOperation: "CREATE",
-    entityId: "",
-    entityTitle: "",
-    entityType: "CHAPTER",
-    id: "",
-    updatedAt: new Date(),
-    userId: "",
-    firstName: "",
-    lastName: "",
-    imageUrl: "",
-  },
-];
-
-export const getUserAudits = async () => {
+export const getUserAudits = async (take: number) => {
   try {
     const { userId } = auth();
 
     if (!userId) {
-      return AuditLogs;
+      return [];
     }
 
     const user = await currentUser();
@@ -35,7 +18,8 @@ export const getUserAudits = async () => {
       orderBy: {
         createdAt: "desc",
       },
-      take: 4,
+      skip: take,
+      take: 1,
     });
 
     const data = activities?.map((audit) => ({
@@ -47,6 +31,6 @@ export const getUserAudits = async () => {
 
     return data;
   } catch (error) {
-    return AuditLogs;
+    return [];
   }
 };

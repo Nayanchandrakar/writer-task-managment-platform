@@ -8,10 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
-import { Button } from "@components/ui/button";
 import { WorkSpace, Note } from "@prisma/client";
 import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
-import { useNotesModal } from "@hooks/use-notes-modal";
 import { cn } from "@lib/utils";
 import { useRouter, useParams } from "next/navigation";
 import WorkSpaceButton from "../workspace/[workSpaceId]/_components/work-space-create-button";
@@ -39,7 +37,7 @@ const Sidebar: FC<SidebarProps> = ({ workSpaces }) => {
   const isActive = (id: string) => !!(workSpaceId === id);
 
   return (
-    <div className="md:mt-16 w-full h-full md:p-4 md:pt-12 md:inline-block hidden ">
+    <div className="mt-8 md:mt-0">
       <div
         onClick={() => workSpaceModal?.onOpen()}
         className="flex justify-between items-center cursor-pointer px-3 transiton-colors duration-300 group"
