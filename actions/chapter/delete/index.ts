@@ -7,6 +7,7 @@ import { formSchema, formSchemaType } from "./schema";
 import { handlerOutputType } from "./type";
 import { actionHandler } from "../../../types/action-types";
 import { revalidatePath } from "next/cache";
+import { createAuditLog } from "@actions/audit/createAuditLog";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {
@@ -34,6 +35,13 @@ const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
         error: "Database error occured!",
       };
     }
+
+    await createAuditLog({
+      entitOperation: "DELETE",
+      entityId: deleteChapter?.id,
+      entityTitle: deleteChapter?.title,
+      entityType: "CHAPTER",
+    });
 
     return {
       data: deleteChapter,

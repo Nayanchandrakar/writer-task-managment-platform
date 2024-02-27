@@ -1,7 +1,6 @@
 "use client";
 
 import { updateChapter } from "@actions/chapter/update";
-import FieldErrors from "@components/global/field-errors";
 import { Button } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { useAction } from "@hooks/useAction";
@@ -25,7 +24,7 @@ const TitleEditForm: FC<TitleEditFormProps> = ({
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
 
-  const { execute, error, fieldErrors, isLoading } = useAction(updateChapter, {
+  const { execute, error, isLoading } = useAction(updateChapter, {
     onSuccess: (data) => {
       setTitle(data?.title);
       toast.success(`chapter ${data?.title} is begin updated!`);
@@ -74,7 +73,6 @@ const TitleEditForm: FC<TitleEditFormProps> = ({
           type="text"
           disabled={isLoading}
         />
-        <FieldErrors id="title" error={fieldErrors} />
       </form>
     );
   } else {

@@ -1,45 +1,54 @@
 "use client";
 import AuditData from "@components/global/audit-data";
 import { AuditLogCustom } from "../../../types/types";
-import { FC, useState, useEffect } from "react";
+import { useState, useCallback } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
 import getUserAuditClient from "@actions/audit/getUserAuditClient";
+import AuditSkeleton from "@components/global/user-audit-skeleton";
 
-interface MapAuditsProps {
-  logs: AuditLogCustom[];
-}
-
-let take = 1;
-
-const MapAudits: FC<MapAuditsProps> = ({ logs }) => {
-  const [data, setData] = useState<AuditLogCustom[]>(logs);
+const MapAudits = () => {
+  const [data, setData] = useState<AuditLogCustom[] | []>([]);
+  const [IsLoading, setIsLoading] = useState<boolean>(false);
+  const [activityLoaded, setActivityLoaded] = useState<number>(0);
 
   const { isIntersecting, ref } = useIntersectionObserver({
     threshold: 0.5,
+    onChange: () => {
+      if (isIntersecting) {
+        fetchActions();
+      }
+    },
   });
 
-  useEffect(() => {
-    const fetchActions = async () => {
-      const res = await getUserAuditClient(take);
+  const fetchActions = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const res = await getUserAuditClient(activityLoaded);
 
-      if (res) {
+      if (res && res?.length !== 0) {
         setData((prev) => [...prev, ...res]);
+        setActivityLoaded(activityLoaded + 4);
       }
-      take++;
-    };
-
-    if (isIntersecting) {
-      fetchActions();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsLoading(false);
     }
-  }, [isIntersecting]);
+  }, [activityLoaded]);
 
   return (
-    <div className="space-y-4 mt-8 overflow-y-scroll h-[15rem]">
+    <div
+      className="space-y-4 mt-8 overflow-y-scroll h-[13rem] "
+      id="custom_scrollbar"
+    >
       {data?.map((audit) => (
         <AuditData key={audit?.id} logs={audit} />
       ))}
-      <div ref={ref} className="">
-        loading.............
+      <div className="space-y-4" ref={ref}>
+        {IsLoading &&
+          Array.from({
+            length: 2,
+          })?.map((e, index) => <AuditSkeleton key={index} />)}
       </div>
     </div>
   );

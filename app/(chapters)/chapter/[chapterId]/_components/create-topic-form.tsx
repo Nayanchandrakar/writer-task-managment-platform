@@ -1,7 +1,6 @@
 "use client";
 
 import { createTopic } from "@actions/topics/create";
-import FieldErrors from "@components/global/field-errors";
 import { Button, buttonVariants } from "@components/ui/button";
 import { Input } from "@components/ui/input";
 import { useAction } from "@hooks/useAction";
@@ -38,7 +37,7 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
     }
   };
 
-  const { fieldErrors, isLoading, execute } = useAction(createTopic, {
+  const { isLoading, execute } = useAction(createTopic, {
     onSuccess: (data) => {
       toast.success(`topic ${data?.name} is begin created!`);
       disableEditing();
@@ -102,8 +101,6 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
               <X className="size-4" />
             </span>
           </div>
-
-          <FieldErrors id="title" error={fieldErrors} />
         </div>
       ) : (
         <span

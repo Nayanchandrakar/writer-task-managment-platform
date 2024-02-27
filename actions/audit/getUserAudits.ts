@@ -6,7 +6,7 @@ export const getUserAudits = async (take: number) => {
     const { userId } = auth();
 
     if (!userId) {
-      return [];
+      return null;
     }
 
     const user = await currentUser();
@@ -19,7 +19,7 @@ export const getUserAudits = async (take: number) => {
         createdAt: "desc",
       },
       skip: take,
-      take: 1,
+      take: 4,
     });
 
     const data = activities?.map((audit) => ({
@@ -31,6 +31,6 @@ export const getUserAudits = async (take: number) => {
 
     return data;
   } catch (error) {
-    return [];
+    return null;
   }
 };

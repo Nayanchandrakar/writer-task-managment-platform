@@ -9,6 +9,7 @@ import { MAX_FREE_lIMIT_COUNT } from "@constants";
 import { getLimits, increaseLimit } from "@actions/global/getLimits";
 import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
+import { createAuditLog } from "@actions/audit/createAuditLog";
 
 const handler = async (req: formType): Promise<handlerOutputType> => {
   try {
@@ -62,6 +63,13 @@ const handler = async (req: formType): Promise<handlerOutputType> => {
         error: "Database error occured",
       };
     }
+
+    await createAuditLog({
+      entitOperation: "CREATE",
+      entityId: chapter?.id,
+      entityTitle: chapter?.title,
+      entityType: "CHAPTER",
+    });
 
     revalidatePath(`/notes/${noteExist?.id}`);
 

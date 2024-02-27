@@ -1,7 +1,6 @@
 "use client";
 
 import { updateTopic } from "@actions/topics/update";
-import FieldErrors from "@components/global/field-errors";
 import { Input } from "@components/ui/input";
 import { useAction } from "@hooks/useAction";
 import { ElementRef, FC, KeyboardEvent, useRef, useState } from "react";
@@ -18,7 +17,7 @@ const TopicUpdateForm: FC<TopicUpdateFormProps> = ({ topicId, topicName }) => {
   const inputRef = useRef<ElementRef<"input">>(null);
   const formRef = useRef<ElementRef<"form">>(null);
 
-  const { fieldErrors, isLoading, execute } = useAction(updateTopic, {
+  const { isLoading, execute } = useAction(updateTopic, {
     onSuccess: (data) => {
       toast.success(`topic ${data?.name} is begin updated!`);
       disableEditing();
@@ -71,7 +70,6 @@ const TopicUpdateForm: FC<TopicUpdateFormProps> = ({ topicId, topicName }) => {
           type="text"
           disabled={isLoading}
         />
-        <FieldErrors id="name" error={fieldErrors} />
       </form>
     );
   }

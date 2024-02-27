@@ -42,22 +42,9 @@ export const getCounters = async () => {
       },
     });
 
-    const notes = await prismadb?.note?.findMany({
-      where: {
-        id: {
-          in: workSpaceids,
-        },
-      },
-    });
-
-    const noteIds = workspace?.map((data) => data?.id);
-    countsData.notesCount = notes?.length;
-
     countsData.chaptersCount = await prismadb?.chapter?.count({
       where: {
-        id: {
-          in: noteIds,
-        },
+        userId,
       },
     });
 

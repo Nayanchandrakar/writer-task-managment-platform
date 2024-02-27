@@ -1,7 +1,6 @@
 "use client";
 
 import { createSubTopic } from "@actions/subtopics/create";
-import FieldErrors from "@components/global/field-errors";
 import { Button, buttonVariants } from "@components/ui/button";
 import { Textarea } from "@components/ui/textarea";
 import { useAction } from "@hooks/useAction";
@@ -34,7 +33,7 @@ const CreateSubTopicForm: FC<CreateSubTopicFormProps> = ({ topicId }) => {
     }
   };
 
-  const { fieldErrors, isLoading, execute } = useAction(createSubTopic, {
+  const { isLoading, execute } = useAction(createSubTopic, {
     onSuccess: (data) => {
       toast.success(`topic ${data?.title} is begin created!`);
       disableEditing();
@@ -89,8 +88,6 @@ const CreateSubTopicForm: FC<CreateSubTopicFormProps> = ({ topicId }) => {
               <X className="size-4" />
             </span>
           </div>
-
-          <FieldErrors id="title" error={fieldErrors} />
         </div>
       ) : (
         <span

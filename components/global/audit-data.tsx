@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import dayjs from "dayjs";
 import { AuditLogCustom } from "../../types/types";
