@@ -17,8 +17,6 @@ const MapAcitivities = ({ entityId }: MapAcitivitiesProps) => {
 
   const trial = [2, 2];
 
-  console.log(entityId);
-
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
@@ -33,12 +31,12 @@ const MapAcitivities = ({ entityId }: MapAcitivitiesProps) => {
       }
     };
     fetchData();
-  }, []);
+  }, [entityId]);
 
   return (
     <div className="mt-2 space-y-4">
       {IsLoading
-        ? trial?.map((e) => <AuditSkeleton />)
+        ? trial?.map((e, index) => <AuditSkeleton key={index + 33} />)
         : data?.map((logs: AuditLogCustom) => (
             <AuditData key={logs?.id} logs={logs} />
           ))}

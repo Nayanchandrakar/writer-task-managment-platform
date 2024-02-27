@@ -156,7 +156,7 @@ const ListTopics = ({ chapterId, topics }: ListTopicsProps) => {
             className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5  gap-4 h-fit"
           >
             {orderedData?.map((data, index) => (
-              <TopicsContainer index={index} data={data} />
+              <TopicsContainer key={data?.id} index={index} data={data} />
             ))}
 
             {provided.placeholder}

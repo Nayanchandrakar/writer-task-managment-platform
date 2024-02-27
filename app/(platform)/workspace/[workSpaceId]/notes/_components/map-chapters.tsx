@@ -15,6 +15,7 @@ const MapChapters = ({ chapters, isPro }: MapChaptersProps) => {
       <div className="flex items-center gap-x-3">
         {chapters?.map((chapter) => (
           <Link
+            key={chapter?.id}
             href={`/chapter/${chapter?.id}`}
             className="w-48 h-28  relative"
           >

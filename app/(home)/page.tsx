@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRightCircle, Star } from "lucide-react";
+import { Star } from "lucide-react";
 
 import Container from "@components/ui/shared/container";
 import CallToAction from "@components/ui/shared/call-to-action";
@@ -13,10 +13,13 @@ const HomePage = () => {
       <Container className="">
         <section className="pb-40 pt-32 md:pt-16">
           <div className="absolute bottom-0 right-0 overflow-hidden">
-            <img
+            <Image
               className="w-full h-auto origin-bottom-right transform scale-150 lg:w-auto lg:mx-auto lg:object-cover lg:scale-75"
               src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/1/background-pattern.png"
-              alt=""
+              alt="image-not-available"
+              sizes="100vw"
+              width={1000}
+              height={1000}
             />
           </div>
 
@@ -42,7 +45,10 @@ const HomePage = () => {
                 <div className="mt-8 sm:mt-16">
                   <div className="flex items-center justify-center lg:justify-start">
                     {trial?.map((e) => (
-                      <Star className="size-6 fill-yellow-400 stroke-none" />
+                      <Star
+                        key={e + 45}
+                        className="size-6 fill-yellow-400 stroke-none"
+                      />
                     ))}
                   </div>
 
@@ -60,10 +66,13 @@ const HomePage = () => {
               </div>
 
               <div className="xl:col-span-1">
-                <img
+                <Image
+                  width={1000}
+                  height={1000}
+                  sizes="100vw"
                   className="w-full mx-auto"
                   src="https://cdn.rareblocks.xyz/collection/clarity/images/hero/1/illustration.png"
-                  alt=""
+                  alt="image-hero"
                 />
               </div>
             </div>
