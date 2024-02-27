@@ -6,9 +6,9 @@ import CreateTopicForm from "./create-topic-form";
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import TopicsContainer from "./topics-container";
 import { TopicWithSubTopics } from "../../../../../types/types";
-import { useAction } from "@hooks/useAction";
-import { updateSubTopicPosition } from "@actions/topics/update-subTopic-position";
-import { updateTopicPosition } from "@actions/topics/update-topic-position";
+import { useAction } from "@/hooks/useAction";
+import { updateSubTopicPosition } from "@/actions/topics/update-subTopic-position";
+import { updateTopicPosition } from "@/actions/topics/update-topic-position";
 import { toast } from "sonner";
 
 interface ListTopicsProps {

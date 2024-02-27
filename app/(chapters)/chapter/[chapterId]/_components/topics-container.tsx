@@ -23,7 +23,7 @@ const TopicsContainer: FC<TopicsContainerProps> = ({ data, index }) => {
         >
           <div
             {...provided.dragHandleProps}
-            className="bg-white/50 backdrop-blur-sm p-3   rounded-md shadow-md shadow-black/10 "
+            className="bg-zinc-200  p-3   rounded-md shadow-md shadow-black/10 "
           >
             {/* topic title update form  */}
             <TopicTitleUpdateForm data={data} />

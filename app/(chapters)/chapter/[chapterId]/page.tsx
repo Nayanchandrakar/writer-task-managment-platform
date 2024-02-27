@@ -1,8 +1,8 @@
 import { auth } from "@clerk/nextjs";
-import prismadb from "@lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { redirect } from "next/navigation";
 import ListTopics from "./_components/list-topics";
-import Container from "@components/ui/shared/container";
+import Container from "@/components/ui/shared/container";
 
 interface chapterIdPageProps {
   params: {

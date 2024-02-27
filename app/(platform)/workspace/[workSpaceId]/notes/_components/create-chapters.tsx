@@ -9,8 +9,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Info, Plus } from "lucide-react";
-import { MAX_FREE_lIMIT_COUNT } from "@constants";
-import { useCreateChapterModal } from "@hooks/use-create-chapter-modal";
+import { MAX_FREE_lIMIT_COUNT } from "@/constants";
+import { useCreateChapterModal } from "@/hooks/use-create-chapter-modal";
 
 interface CreateChaptersProps {
   isPro: boolean;

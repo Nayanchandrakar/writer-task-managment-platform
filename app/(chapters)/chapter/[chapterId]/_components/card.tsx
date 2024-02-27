@@ -1,6 +1,6 @@
 "use client";
 import { Draggable } from "@hello-pangea/dnd";
-import { useSubTopicToogleModal } from "@hooks/use-subtopic-toogle-modal";
+import { useSubTopicToogleModal } from "@/hooks/use-subtopic-toogle-modal";
 import { SubTopic } from "@prisma/client";
 import { FC } from "react";
 import SubTopicToogleModal from "./modal/subtopic-toogle-modal";

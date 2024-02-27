@@ -1,6 +1,6 @@
-import { getLimits } from "@actions/global/getLimits";
-import { Progress } from "@components/ui/progress";
-import { MAX_FREE_lIMIT_COUNT } from "@constants/index";
+import { getLimits } from "@/actions/global/getLimits";
+import { Progress } from "@/components/ui/progress";
+import { MAX_FREE_lIMIT_COUNT } from "@/constants/index";
 
 const FreeLimitsCounter = async () => {
   const { workSpaceLimit } = await getLimits();

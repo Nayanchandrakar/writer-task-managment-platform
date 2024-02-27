@@ -1,10 +1,10 @@
 "use client";
-import AuditData from "@components/global/audit-data";
+import AuditData from "@/components/global/audit-data";
 import { AuditLogCustom } from "../../../types/types";
 import { useState, useCallback } from "react";
 import { useIntersectionObserver } from "usehooks-ts";
-import getUserAuditClient from "@actions/audit/getUserAuditClient";
-import AuditSkeleton from "@components/global/user-audit-skeleton";
+import getUserAuditClient from "@/actions/audit/getUserAuditClient";
+import AuditSkeleton from "@/components/global/user-audit-skeleton";
 
 const MapAudits = () => {
   const [data, setData] = useState<AuditLogCustom[] | []>([]);

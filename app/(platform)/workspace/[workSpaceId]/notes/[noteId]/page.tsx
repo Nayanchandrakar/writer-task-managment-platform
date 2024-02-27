@@ -1,12 +1,12 @@
-import Container from "@components/ui/shared/container";
-import prismadb from "@lib/prismadb";
+import Container from "@/components/ui/shared/container";
+import prismadb from "@/lib/prismadb";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 import Label from "../_components/Label";
 import { Building } from "lucide-react";
 import MapChapters from "../_components/map-chapters";
 import { auth } from "@clerk/nextjs";
-import { getSubscription } from "@actions/subscription/get";
+import { getSubscription } from "@/actions/subscription/get";
 
 interface NotesPageProps {
   params: {

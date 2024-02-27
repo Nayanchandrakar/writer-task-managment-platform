@@ -4,9 +4,9 @@ import { toast } from "sonner";
 import { MoreVertical } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-import ToogleMenu from "@components/global/toogle-menu";
-import { deleteChapter } from "@actions/chapter/delete";
-import { useAction } from "@hooks/useAction";
+import ToogleMenu from "@/components/global/toogle-menu";
+import { deleteChapter } from "@/actions/chapter/delete";
+import { useAction } from "@/hooks/useAction";
 
 interface ChapterNavbarActionsProps {
   chapterId: string;

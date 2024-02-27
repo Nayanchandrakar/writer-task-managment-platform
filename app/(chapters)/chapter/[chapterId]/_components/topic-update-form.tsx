@@ -1,8 +1,8 @@
 "use client";
 
-import { updateTopic } from "@actions/topics/update";
-import { Input } from "@components/ui/input";
-import { useAction } from "@hooks/useAction";
+import { updateTopic } from "@/actions/topics/update";
+import { Input } from "@/components/ui/input";
+import { useAction } from "@/hooks/useAction";
 import { ElementRef, FC, KeyboardEvent, useRef, useState } from "react";
 import { toast } from "sonner";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";

@@ -1,13 +1,13 @@
 "use client";
 
 import { FC } from "react";
-import ToogleMenu from "@components/global/toogle-menu";
+import ToogleMenu from "@/components/global/toogle-menu";
 import { Topic } from "@prisma/client";
 import { MoreVertical } from "lucide-react";
-import { useAction } from "@hooks/useAction";
-import { deleteTopic } from "@actions/topics/delete";
+import { useAction } from "@/hooks/useAction";
+import { deleteTopic } from "@/actions/topics/delete";
 import { toast } from "sonner";
-import { copyTopics } from "@actions/topics/copy-topics";
+import { copyTopics } from "@/actions/topics/copy-topics";
 import TopicUpdateForm from "./topic-update-form";
 
 interface TopicTitleUpdateFormProps {

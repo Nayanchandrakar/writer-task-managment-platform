@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "@/app/style/globals.css";
 import { auth } from "@clerk/nextjs";
 import Sidebar from "./_components/Sidebar";
-import prismadb from "@lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { redirect } from "next/navigation";
 import MiniSidebar from "./_components/mini-sidebar";
 

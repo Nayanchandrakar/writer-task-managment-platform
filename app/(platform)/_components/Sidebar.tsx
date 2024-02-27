@@ -9,8 +9,8 @@ import {
 } from "@/components/ui/accordion";
 import { Plus } from "lucide-react";
 import { WorkSpace, Note } from "@prisma/client";
-import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
-import { cn } from "@lib/utils";
+import { useWorkSpaceModal } from "@/hooks/use-workspace-modal";
+import { cn } from "@/lib/utils";
 import { useRouter, useParams } from "next/navigation";
 import WorkSpaceButton from "../workspace/[workSpaceId]/_components/work-space-create-button";
 

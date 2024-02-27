@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
-import { DAY_IN_MS } from "@constants";
-import prismadb from "@lib/prismadb";
+import { DAY_IN_MS } from "@/constants";
+import prismadb from "@/lib/prismadb";
 
 export const getSubscription = async () => {
   try {

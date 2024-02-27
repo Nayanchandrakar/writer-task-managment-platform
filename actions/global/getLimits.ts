@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
-import { MAX_FREE_lIMIT_COUNT } from "@constants";
-import prismadb from "@lib/prismadb";
+import { MAX_FREE_lIMIT_COUNT } from "@/constants";
+import prismadb from "@/lib/prismadb";
 
 interface limitsInterface {
   chapterLimit: number;

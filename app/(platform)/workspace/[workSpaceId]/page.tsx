@@ -1,6 +1,6 @@
 import { auth } from "@clerk/nextjs";
-import Container from "@components/ui/shared/container";
-import prismadb from "@lib/prismadb";
+import Container from "@/components/ui/shared/container";
+import prismadb from "@/lib/prismadb";
 import { redirect } from "next/navigation";
 import { FC } from "react";
 import WorkSpaceButton from "./_components/work-space-create-button";

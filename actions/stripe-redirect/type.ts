@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { handlerType } from "../../types/action-types";
+import { handlerType } from "@/types/action-types";
 
 import { StripeRedirect } from "./schema";
 

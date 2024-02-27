@@ -1,6 +1,5 @@
 import { auth, currentUser } from "@clerk/nextjs";
-import prismadb from "@lib/prismadb";
-import { revalidatePath } from "next/cache";
+import prismadb from "@/lib/prismadb";
 import { NextResponse } from "next/server";
 
 export const GET = async (

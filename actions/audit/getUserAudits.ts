@@ -1,5 +1,5 @@
 import { auth, currentUser } from "@clerk/nextjs";
-import prismadb from "@lib/prismadb";
+import prismadb from "@/lib/prismadb";
 
 export const getUserAudits = async (take: number) => {
   try {

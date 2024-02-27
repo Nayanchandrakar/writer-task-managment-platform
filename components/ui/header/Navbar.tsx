@@ -1,4 +1,4 @@
-import Container from "@components/ui/shared/container";
+import Container from "@/components/ui/shared/container";
 import { FC } from "react";
 import Logo from "./Logo";
 import Actions from "./Actions";

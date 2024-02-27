@@ -1,9 +1,9 @@
 "use client";
 
-import { updateChapter } from "@actions/chapter/update";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/input";
-import { useAction } from "@hooks/useAction";
+import { updateChapter } from "@/actions/chapter/update";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAction } from "@/hooks/useAction";
 import { ElementRef, FC, useRef, useState } from "react";
 import { toast } from "sonner";
 

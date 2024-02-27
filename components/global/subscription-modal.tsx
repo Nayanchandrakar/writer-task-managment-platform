@@ -1,10 +1,10 @@
 "use client";
 
-import DialogModal from "@components/modals/dialog-modal";
-import { useSubscription } from "@hooks/use-subscription-modal";
+import DialogModal from "@/components/modals/dialog-modal";
+import { useSubscription } from "@/hooks/use-subscription-modal";
 import { FC } from "react";
 import Image from "next/image";
-import { DialogFooter, DialogHeader } from "@components/ui/dialog";
+import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
 import { DialogDescription } from "@radix-ui/react-dialog";
 import { SubscriptionButton } from "./subscription-button";
 

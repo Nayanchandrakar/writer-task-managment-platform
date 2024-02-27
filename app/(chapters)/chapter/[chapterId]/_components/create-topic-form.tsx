@@ -1,10 +1,10 @@
 "use client";
 
-import { createTopic } from "@actions/topics/create";
-import { Button, buttonVariants } from "@components/ui/button";
-import { Input } from "@components/ui/input";
-import { useAction } from "@hooks/useAction";
-import { cn } from "@lib/utils";
+import { createTopic } from "@/actions/topics/create";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { useAction } from "@/hooks/useAction";
+import { cn } from "@/lib/utils";
 import { Plus, X } from "lucide-react";
 import { ElementRef, FC, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -64,7 +64,7 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
       ref={formRef}
       action={onSubmit}
       className={cn(
-        "flex justify-start items-center  w-full h-fit  rounded-md space-x-2 ",
+        "flex justify-start items-center   w-full h-fit  rounded-md space-x-2 ",
         IsEditing && "bg-white p-3"
       )}
     >
@@ -104,7 +104,7 @@ const CreateTopicForm: FC<CreateTopicFormProps> = ({ chapterId }) => {
         </div>
       ) : (
         <span
-          className=" w-full h-full hover:bg-white/40 bg-white/70 flex items-center space-x-2 p-3 rounded-md text-neutral-700 transition-colors duration-200   cursor-pointer"
+          className=" w-full h-full bg-zinc-200 flex items-center space-x-2 p-3 rounded-md text-neutral-700 transition-colors duration-200   cursor-pointer"
           onClick={handleEditing}
         >
           <Plus className="size-4" />

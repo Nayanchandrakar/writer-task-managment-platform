@@ -1,10 +1,10 @@
 "use server";
 
 import { auth } from "@clerk/nextjs";
-import { actionHandler } from "../../../types/action-types";
+import { actionHandler } from "@/types/action-types";
 import { formSchemaType, formSchema } from "./schema";
 import { handlerOutputType } from "./type";
-import prismadb from "../../../lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { revalidatePath } from "next/cache";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {

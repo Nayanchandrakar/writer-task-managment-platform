@@ -3,14 +3,14 @@
 import { auth, currentUser } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
 
-import prismadb from "../../lib/prismadb";
-import { actionHandler } from "../../types/action-types";
+import prismadb from "@/lib/prismadb";
+import { actionHandler } from "@/types/action-types";
+
+import { stripe } from "@/lib/stripe";
+import { absoluteUrl } from "@/lib/utils";
 
 import { StripeRedirect } from "./schema";
 import { InputType, ReturnType } from "./type";
-
-import { absoluteUrl } from "../../lib/utils";
-import { stripe } from "../../lib/stripe";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId } = auth();

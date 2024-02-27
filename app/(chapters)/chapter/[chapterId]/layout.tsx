@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import prismadb from "@lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { notFound, redirect } from "next/navigation";
 import ChapterForm from "./_components/chapter-form";
 

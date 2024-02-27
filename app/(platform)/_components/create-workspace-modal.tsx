@@ -2,16 +2,16 @@
 
 import { FC } from "react";
 
-import DialogModal from "@components/modals/dialog-modal";
-import { useWorkSpaceModal } from "@hooks/use-workspace-modal";
-import { Input } from "@components/ui/input";
-import { Button } from "@components/ui/button";
+import DialogModal from "@/components/modals/dialog-modal";
+import { useWorkSpaceModal } from "@/hooks/use-workspace-modal";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useAction } from "@hooks/useAction";
-import { createWorkSpaceAction } from "@actions/workspace/create-worspace/index";
+import { useAction } from "@/hooks/useAction";
+import { createWorkSpaceAction } from "@/actions/workspace/create-worspace/index";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
-import { useSubscription } from "@hooks/use-subscription-modal";
+import { useSubscription } from "@/hooks/use-subscription-modal";
 
 interface CreatWorkSpaceProps {}
 

@@ -2,18 +2,18 @@
 
 import { auth } from "@clerk/nextjs";
 import { revalidatePath } from "next/cache";
-import prismadb from "@lib/prismadb";
+import prismadb from "@/lib/prismadb";
 
 import {
   formSchema,
   formSchemaType,
-} from "@actions/workspace/create-worspace/schema";
+} from "@/actions/workspace/create-worspace/schema";
 import { handlerOutputType } from "./types";
-import { actionHandler } from "../../../types/action-types";
-import { getSubscription } from "@actions/subscription/get";
-import { MAX_FREE_lIMIT_COUNT } from "@constants";
-import { getLimits, increaseLimit } from "@actions/global/getLimits";
-import { createAuditLog } from "@actions/audit/createAuditLog";
+import { actionHandler } from "@/types/action-types";
+import { getSubscription } from "@/actions/subscription/get";
+import { MAX_FREE_lIMIT_COUNT } from "@/constants";
+import { getLimits, increaseLimit } from "@/actions/global/getLimits";
+import { createAuditLog } from "@/actions/audit/createAuditLog";
 
 const handler = async (req: formSchemaType): Promise<handlerOutputType> => {
   try {

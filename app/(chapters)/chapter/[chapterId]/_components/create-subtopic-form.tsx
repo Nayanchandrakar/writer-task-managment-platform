@@ -1,10 +1,10 @@
 "use client";
 
-import { createSubTopic } from "@actions/subtopics/create";
-import { Button, buttonVariants } from "@components/ui/button";
-import { Textarea } from "@components/ui/textarea";
-import { useAction } from "@hooks/useAction";
-import { cn } from "@lib/utils";
+import { createSubTopic } from "@/actions/subtopics/create";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { useAction } from "@/hooks/useAction";
+import { cn } from "@/lib/utils";
 import { Plus, X } from "lucide-react";
 import { ElementRef, FC, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -91,7 +91,7 @@ const CreateSubTopicForm: FC<CreateSubTopicFormProps> = ({ topicId }) => {
         </div>
       ) : (
         <span
-          className=" w-full h-full  flex items-center space-x-2  text-neutral-500 transition-colors duration-200  hover:text-neutral-600  cursor-pointer"
+          className=" w-full h-full  flex items-center space-x-2  text-neutral-800 transition-colors duration-200  hover:text-zinc-700  cursor-pointer"
           onClick={handleEditing}
         >
           <Plus className="size-4" />

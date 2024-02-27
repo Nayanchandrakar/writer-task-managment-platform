@@ -1,6 +1,6 @@
 "use client";
 import { UserButton } from "@clerk/nextjs";
-import { Button } from "@components/ui/button";
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { FC } from "react";
 

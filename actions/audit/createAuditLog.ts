@@ -1,5 +1,5 @@
 import { auth } from "@clerk/nextjs";
-import prismadb from "@lib/prismadb";
+import prismadb from "@/lib/prismadb";
 import { ACTIVITY_OPERATIONS, ACTIVITY_TYPES } from "@prisma/client";
 
 interface createAuditLogInterface {

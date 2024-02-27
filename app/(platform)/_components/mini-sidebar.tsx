@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import Sidebar from "./Sidebar";
 import { Note, WorkSpace } from "@prisma/client";
-import { useMobileMenu } from "@hooks/use-mobile-menu";
+import { useMobileMenu } from "@/hooks/use-mobile-menu";
 
 interface MiniSidebarProps {
   workSpaces:

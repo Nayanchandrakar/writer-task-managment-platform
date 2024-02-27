@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 
 import axios from "axios";
-import AuditData from "@components/global/audit-data";
-import AuditSkeleton from "@components/global/user-audit-skeleton";
+import AuditData from "@/components/global/audit-data";
+import AuditSkeleton from "@/components/global/user-audit-skeleton";
 import { AuditLogCustom } from "../../../../../types/types";
 
 interface MapAcitivitiesProps {

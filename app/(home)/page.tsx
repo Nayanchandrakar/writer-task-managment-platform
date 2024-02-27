@@ -2,8 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Star } from "lucide-react";
 
-import Container from "@components/ui/shared/container";
-import CallToAction from "@components/ui/shared/call-to-action";
+import Container from "@/components/ui/shared/container";
+import CallToAction from "@/components/ui/shared/call-to-action";
 
 const HomePage = () => {
   const trial = [2, 2, 2, 2, 2];

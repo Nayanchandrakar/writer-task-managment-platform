@@ -3,11 +3,11 @@
 import { toast } from "sonner";
 import { Copy, Trash } from "lucide-react";
 
-import { copySubTopic } from "@actions/topics/copy-subtopics";
-import { deleteSubTopic } from "@actions/topics/delete-subtopic";
-import { Button } from "@components/ui/button";
-import { useSubTopicToogleModal } from "@hooks/use-subtopic-toogle-modal";
-import { useAction } from "@hooks/useAction";
+import { copySubTopic } from "@/actions/topics/copy-subtopics";
+import { deleteSubTopic } from "@/actions/topics/delete-subtopic";
+import { Button } from "@/components/ui/button";
+import { useSubTopicToogleModal } from "@/hooks/use-subtopic-toogle-modal";
+import { useAction } from "@/hooks/useAction";
 
 const SubTopicActions = ({}) => {
   const subTopic = useSubTopicToogleModal();

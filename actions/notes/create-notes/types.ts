@@ -1,4 +1,4 @@
-import { handlerType } from "../../../types/action-types";
+import { handlerType } from "@/types/action-types";
 import { formSchemaType } from "./schema";
 import { Note } from "@prisma/client";
 

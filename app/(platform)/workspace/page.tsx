@@ -1,10 +1,10 @@
-import Container from "@components/ui/shared/container";
+import Container from "@/components/ui/shared/container";
 import FreeLimitsCounter from "./_components/free-limits-counter";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
 import WorkSpaceCard from "./_components/workspace-card";
-import { getCounters } from "@actions/workspace/counts";
-import { getSubscription } from "@actions/subscription/get";
+import { getCounters } from "@/actions/workspace/counts";
+import { getSubscription } from "@/actions/subscription/get";
 import UserAudits from "../_components/user-audits";
 
 const workSpacePage = async ({}) => {

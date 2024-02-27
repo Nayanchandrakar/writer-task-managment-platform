@@ -1,14 +1,14 @@
 "use client";
 
-import { createChapterAction } from "@actions/chapter/create-chapter";
-import DialogModal from "@components/modals/dialog-modal";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/input";
-import { defaultImages } from "@constants/images";
-import { useCreateChapterModal } from "@hooks/use-create-chapter-modal";
-import { useSubscription } from "@hooks/use-subscription-modal";
-import { useAction } from "@hooks/useAction";
-import { unsplash } from "@lib/unsplash";
+import { createChapterAction } from "@/actions/chapter/create-chapter";
+import DialogModal from "@/components/modals/dialog-modal";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { defaultImages } from "@/constants/images";
+import { useCreateChapterModal } from "@/hooks/use-create-chapter-modal";
+import { useSubscription } from "@/hooks/use-subscription-modal";
+import { useAction } from "@/hooks/useAction";
+import { unsplash } from "@/lib/unsplash";
 import { Check, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";

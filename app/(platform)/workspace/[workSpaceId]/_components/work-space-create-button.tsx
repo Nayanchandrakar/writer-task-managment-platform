@@ -1,9 +1,9 @@
 "use client";
 import { FC } from "react";
-import { Button } from "@components/ui/button";
-import { useNotesModal } from "@hooks/use-notes-modal";
+import { Button } from "@/components/ui/button";
+import { useNotesModal } from "@/hooks/use-notes-modal";
 import { Plus } from "lucide-react";
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 
 interface WorkSpaceButtonProps {
   workSpaceId: string;

@@ -1,13 +1,13 @@
 "use client";
-import DialogModal from "@components/modals/dialog-modal";
-import { useSubTopicToogleModal } from "@hooks/use-subtopic-toogle-modal";
+import DialogModal from "@/components/modals/dialog-modal";
+import { useSubTopicToogleModal } from "@/hooks/use-subtopic-toogle-modal";
 import { SubTopic } from "@prisma/client";
 import HeadingShortner from "./heading-shortner";
 import { Activity, Layers, Text } from "lucide-react";
-import { Textarea } from "@components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 import SubTopicActions from "./subtopic-actions";
-import { useAction } from "@hooks/useAction";
-import { updateSubTopic } from "@actions/subtopics/update";
+import { useAction } from "@/hooks/useAction";
+import { updateSubTopic } from "@/actions/subtopics/update";
 import { toast } from "sonner";
 import { useState } from "react";
 import MapAcitivities from "../map-activitylog";

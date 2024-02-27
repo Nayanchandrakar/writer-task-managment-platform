@@ -6,9 +6,9 @@ import Navbar from "../components/ui/header/Navbar";
 import CreatWorkSpace from "./(platform)/_components/create-workspace-modal";
 import { Toaster } from "sonner";
 import CreateNoteModal from "./(platform)/_components/create-notes-modal";
-import SubscriptionModal from "@components/global/subscription-modal";
-import CreateChapterModal from "@components/global/create-chapter-modal";
-import { getSubscription } from "@actions/subscription/get";
+import SubscriptionModal from "@/components/global/subscription-modal";
+import CreateChapterModal from "@/components/global/create-chapter-modal";
+import { getSubscription } from "@/actions/subscription/get";
 import SubTopicToogleModal from "./(chapters)/chapter/[chapterId]/_components/modal/subtopic-toogle-modal";
 
 const inter = Inter({ subsets: ["latin"] });

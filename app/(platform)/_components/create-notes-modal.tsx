@@ -2,16 +2,16 @@
 
 import { FC } from "react";
 
-import DialogModal from "@components/modals/dialog-modal";
-import { Input } from "@components/ui/input";
-import { Button } from "@components/ui/button";
+import DialogModal from "@/components/modals/dialog-modal";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { useAction } from "@hooks/useAction";
+import { useAction } from "@/hooks/useAction";
 import { toast } from "sonner";
 import { useParams, useRouter } from "next/navigation";
-import { useNotesModal } from "@hooks/use-notes-modal";
-import { createnotesAction } from "@actions/notes/create-notes/index";
-import { useSubscription } from "@hooks/use-subscription-modal";
+import { useNotesModal } from "@/hooks/use-notes-modal";
+import { createnotesAction } from "@/actions/notes/create-notes/index";
+import { useSubscription } from "@/hooks/use-subscription-modal";
 
 interface CreateNoteModalProps {}
 
